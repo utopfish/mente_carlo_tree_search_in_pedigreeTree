@@ -4,6 +4,7 @@
 #@file:mente_carlo_tree_search.py
 #@time: 2019/10/17 21:32
 import sys
+import time
 import math
 import random
 import numpy as np
@@ -329,6 +330,7 @@ def readDataTxt(path):
     data=pd.read_table(path,header=None,sep=" ")
     return data
 def main():
+  start=time
   # Create the initialized state and initialized node
   path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\002号数据集\缺失数据集.txt"
   data = readDataTxt(path2)
@@ -341,6 +343,7 @@ def main():
   init_node.set_state(initTree)
   current_node =monte_carlo_tree_search(init_node)
   # Set the rounds to play
+  print(time.time()-start)
   for i in range(10):
     print("Play round: {}".format(i + 1))
     current_node = monte_carlo_tree_search(current_node)
