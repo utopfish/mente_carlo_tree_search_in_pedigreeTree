@@ -84,6 +84,8 @@ class Node(object):
     self.MaxchildrenNumber=0
     self.visit_times = 0 #访问次数
     self.quality_value = 0.0 #得分
+    self.childrenPool=[] #chilidren的待选库
+
 
   def set_state(self, state):
     self.state = state
@@ -135,6 +137,8 @@ class Node(object):
 def divis(S):
     D = np.sum(S)
     result=[]
+    if len(S)<3:
+        return [S]
     for x in range(2 ** (len(S) - 1)):
         part1 = 0
         part2 = 0
@@ -209,13 +213,34 @@ def get_next_state_with_random_choice(treeSatus):
         if isinstance(i,list):
             newTree[index]=get_next_state_with_random_choice(i)
     return newTree
-    # can_divis=find_can_divis(treeSatus)
-    # result=[]
-    # for i in can_divis :
-    #     result.append(random.choice(divis(i)))
-    # if len(result)==1:
-    #     return result[0]
-    # return result
+def get_children(treeStatus):
+    if is_terminal(treeStatus):
+        return [treeStatus]
+    if isinstance(treeStatus[0], int) and len(treeStatus) > 2:
+        return divis(treeStatus)
+
+    newTree = copy.deepcopy(treeStatus)
+    resultTreeNow = []
+    resultTreeNow.append(newTree)
+
+    for index, i in enumerate(treeStatus):
+        if isinstance(i, list):
+            resultTreePre=copy.deepcopy(resultTreeNow)
+            resultTreeNow=[]
+            for tree in resultTreePre:
+                for k in get_children(i):
+                    newtr=copy.deepcopy(tree)
+                    newtr[index] = k
+                    resultTreeNow.append(newtr)
+    return resultTreeNow
+def get_next_state_with_random_choice2(node):
+    if len(node.childrenPool):
+        pass
+    else:
+        node.childrenPool=get_children(node.get_state())
+    return random.choice(node.childrenPool)
+
+
 
 
 def default_policy(node):
@@ -233,15 +258,7 @@ def default_policy(node):
   current_state =current_state.replace("[","(").replace("]",")").replace(" ","")
 
   return getFict(current_state,li)
-  # # Run until the game over
-  #
-  # while current_state.is_terminal() == False:
-  #
-  #   # Pick one random action to play and get next state
-  #   current_state = current_state.get_next_state_with_random_choice()
-  #
-  # final_state_reward = current_state.compute_reward()
-  # return final_state_reward
+
 
 
 def expand(node):
@@ -253,11 +270,11 @@ def expand(node):
       sub_node.get_state() for sub_node in node.get_children()
   ]
 
-  new_state = get_next_state_with_random_choice(node.get_state())
+  new_state = get_next_state_with_random_choice2(node)
 
   # Check until get the new state which has the different action from others
   while new_state in tried_sub_node_states:
-    new_state = get_next_state_with_random_choice(node.get_state())
+    new_state = get_next_state_with_random_choice2(node)
 
   sub_node = Node()
   sub_node.set_state(new_state)
@@ -323,7 +340,7 @@ def monte_carlo_tree_search(node):
   进行预测时，只需要根据Q值选择exploitation最大的节点即可，找到下一个最优的节点。
   """
 
-  computation_budget = 20
+  computation_budget = 200
 
   # Run as much as possible under the computation budget
   for i in range(computation_budget):
@@ -348,7 +365,7 @@ def readDataTxt(path):
 def main():
   start=time.time()
   # Create the initialized state and initialized node
-  path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\001号数据集奇虾\001号含缺失数据集.txt"
+  path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\003号叶足动物数据集\缺失数据集.txt"
   data = readDataTxt(path2)
   li = np.array(data)
   initTree=[ i for i in range(len(li))]
@@ -361,6 +378,8 @@ def main():
   # Set the rounds to play
 
   count=0
+  print("Play round: {}".format(count))
+  print("Choose node: {}".format(current_node))
   while current_node!=None:
       print("Play round: {}".format(count + 1))
       count+=1
