@@ -7,12 +7,16 @@ import sys
 import math
 import random
 import numpy as np
-
+import pandas as pd
+from singleCharacterFitch import getFict
 AVAILABLE_CHOICES = [1, -1, 2, -2]
 AVAILABLE_CHOICE_NUMBER = len(AVAILABLE_CHOICES)
 MAX_ROUND_NUMBER = 10
+from singleCharacterFitch import readDataTxt
+path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\002号数据集\缺失数据集.txt"
+data = readDataTxt(path2)
 
-
+li = np.array(data)
 class State(object):
   """
   蒙特卡罗树搜索的游戏状态，记录在某一个Node节点下的状态数据，包含当前的游戏得分、当前的游戏round数、从开始到当前的执行记录。
@@ -76,10 +80,10 @@ class Node(object):
     self.parent = None
     self.children = []
 
-    self.visit_times = 0
-    self.quality_value = 0.0
+    self.visit_times = 0 #访问次数
+    self.quality_value = 0.0 #得分
 
-    self.state = None
+
 
   def set_state(self, state):
     self.state = state
@@ -115,7 +119,11 @@ class Node(object):
     self.quality_value += n
 
   def is_all_expand(self):
-    return len(self.children) == AVAILABLE_CHOICE_NUMBER
+    divisSet=find_can_divis(self.state)
+    sum=1
+    for i in divisSet:
+        sum*=int(math.pow(2,len(i)-1)-2)
+    return len(self.children) == sum
 
   def add_child(self, sub_node):
     sub_node.set_parent(self)
@@ -126,6 +134,44 @@ class Node(object):
         hash(self), self.quality_value, self.visit_times, self.state)
 
 
+def divis(S):
+    D = np.sum(S)
+    result=[]
+    for x in range(2 ** (len(S) - 1)):
+        part1 = 0
+        part2 = 0
+        s1 = []
+        s2 = []
+        for i in range(len(S)):
+            if (x >> i) % 2 == 1:
+                part1 += S[i]
+                s1.append(S[i])
+            else:
+                s2.append(S[i])
+                part2 += S[i]
+        if abs(part2 - part1) < D:
+            result.append([s1,s2])
+    return result
+def is_terminal(treeSatus):
+    if isinstance(treeSatus[0],int):
+        return False if len(treeSatus)>2 else True
+    re = True
+    for index,i in enumerate(treeSatus):
+        if isinstance(i,list):
+            re= True if re and is_terminal(i) else False
+    return re
+def find_can_divis(treeSatus):
+    if isinstance(treeSatus[0],int):
+        if len(treeSatus)>2:
+            return [treeSatus]
+    re = []
+    for index,i in enumerate(treeSatus):
+        if isinstance(i,list):
+            if is_terminal(i)==False:
+                re.append(i)
+    return re
+
+
 def tree_policy(node):
   """
   蒙特卡罗树搜索的Selection和Expansion阶段，传入当前需要开始搜索的节点（例如根节点），根据exploration/exploitation算法返回最好的需要expend的节点，注意如果节点是叶子结点直接返回。
@@ -133,8 +179,8 @@ def tree_policy(node):
   """
 
   # Check if the current node is the leaf node
-  while node.get_state().is_terminal() == False:
-
+  while is_terminal(node.get_state()) == False:
+        #判断是否可能的结果全部探索完，这里可以用来限制探索的广度
     if node.is_all_expand():
       node = best_child(node, True)
     else:
@@ -145,6 +191,15 @@ def tree_policy(node):
   # Return the leaf node
   return node
 
+def get_next_state_with_random_choice(treeSatus):
+    can_divis=find_can_divis(treeSatus)
+    result=[]
+    for i in can_divis :
+        result.append(random.choice(divis(i)))
+    if len(result)==1:
+        return result[0]
+    return result
+
 
 def default_policy(node):
   """
@@ -154,15 +209,22 @@ def default_policy(node):
 
   # Get the state of the game
   current_state = node.get_state()
+  res=find_can_divis(current_state)
+  current_state=str(current_state)
+  for i in res:
+      current_state =current_state.replace(str(i),str(i).replace("[","{").replace("]","}"))
+  current_state =current_state.replace("[","(").replace("]",")").replace(" ","")
 
-  # Run until the game over
-  while current_state.is_terminal() == False:
-
-    # Pick one random action to play and get next state
-    current_state = current_state.get_next_state_with_random_choice()
-
-  final_state_reward = current_state.compute_reward()
-  return final_state_reward
+  return getFict(current_state,li)
+  # # Run until the game over
+  #
+  # while current_state.is_terminal() == False:
+  #
+  #   # Pick one random action to play and get next state
+  #   current_state = current_state.get_next_state_with_random_choice()
+  #
+  # final_state_reward = current_state.compute_reward()
+  # return final_state_reward
 
 
 def expand(node):
@@ -174,11 +236,11 @@ def expand(node):
       sub_node.get_state() for sub_node in node.get_children()
   ]
 
-  new_state = node.get_state().get_next_state_with_random_choice()
+  new_state = get_next_state_with_random_choice(node.get_state())
 
   # Check until get the new state which has the different action from others
   while new_state in tried_sub_node_states:
-    new_state = node.get_state().get_next_state_with_random_choice()
+    new_state = get_next_state_with_random_choice(node.get_state())
 
   sub_node = Node()
   sub_node.set_state(new_state)
@@ -263,19 +325,26 @@ def monte_carlo_tree_search(node):
 
   return best_next_node
 
-
+def readDataTxt(path):
+    data=pd.read_table(path,header=None,sep=" ")
+    return data
 def main():
   # Create the initialized state and initialized node
-  init_state = State()
-  init_node = Node()
-  init_node.set_state(init_state)
-  current_node = init_node
+  path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\002号数据集\缺失数据集.txt"
+  data = readDataTxt(path2)
+  li = np.array(data)
+  initTree=[ i for i in range(len(li))]
+  # initTree = [i for i in range(6)]
+  print(initTree)
 
+  init_node = Node()
+  init_node.set_state(initTree)
+  current_node =monte_carlo_tree_search(init_node)
   # Set the rounds to play
   for i in range(10):
     print("Play round: {}".format(i + 1))
     current_node = monte_carlo_tree_search(current_node)
-    print("Choose node: {}".format(current_node))
+    print("Choose node: {}".format(init_node))
 
 
 if __name__ == "__main__":

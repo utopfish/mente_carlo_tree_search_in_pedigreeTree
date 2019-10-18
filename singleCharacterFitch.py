@@ -343,6 +343,7 @@ class Tree:
     def findMid(self,general_lists):
       #二叉分类
         mark=0
+        bigmark=0
         mid=0
         if general_lists[0]=="{":
             return Node(set(general_lists[1:-1].split(",")))
@@ -352,7 +353,11 @@ class Tree:
                     mark+=1
                 elif (i==")"):
                     mark-=1
-                elif (i=="," and mark==0):
+                elif i=="{":
+                    bigmark+=1
+                elif i=="}":
+                    bigmark-=1
+                elif (i=="," and mark==0 and bigmark==0):
                     mid=index
                     break
             if mid==0:
@@ -367,7 +372,6 @@ def readDataTxt(path):
     data=pd.read_table(path,header=None,sep=" ")
     return data
 def getSingleChararcterFitch(treeResult,character):
-    count=0
     tree = Tree(treeResult)
     tree.postorderInit(tree.root, character)
     tree.postorderGetAllElement(tree.root)
@@ -377,6 +381,12 @@ def getSingleChararcterFitch(treeResult,character):
     tree.secondDownPass(tree.root, tree.score)
     tree.secondUpPass(tree.root, False)
     return tree.score[0]
+def getFict(treeResult,characters):
+    count=0
+    for i in range(1,len(characters[0])):
+        count+=getSingleChararcterFitch(treeResult,characters[:,i])
+    print("count %d" % count)
+    return count
 
 if __name__=="__main__":
 
@@ -408,17 +418,8 @@ if __name__=="__main__":
     count=0
     start=time.time()
     for i in range(1,len(li[0])):
-        tree = Tree(result22)
-        tree.postorderInit(tree.root,li[:,i])
-        # tree.postorderPrint(tree.root)
-        tree.postorderGetAllElement(tree.root)
-        tree.firstDownpass(tree.root)
-        tree.firstUppass(tree.root,False)
-        tree.initialiseTracker(tree.root,False)
-        tree.secondDownPass(tree.root,tree.score)
-        # print(tree.score)
-        count+=tree.score[0]
-        tree.secondUpPass(tree.root,False)
+        print(li[:,i])
+        count+=getSingleChararcterFitch(result22,li[:,i])
     print("count %d" % count)
     print("耗时{}".format(time.time()-start))
 
