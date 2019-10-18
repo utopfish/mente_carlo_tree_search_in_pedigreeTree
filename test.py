@@ -33,14 +33,12 @@ path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleC
 data = readDataTxt(path2)
 li = np.array(data)
 k=10
-initTree= [i for i in range(k)]
+initTree= [i for i in range(len(li))]
 t=divis(initTree)
 for i in t:
-    print("------")
     print(i)
-    print(is_terminal(i))
 print(len(t))
-print(int(math.pow(2,k-1)-2))
+print(int(math.pow(2,len(li)-1)-2))
 
 
 

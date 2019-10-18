@@ -7,6 +7,7 @@ import sys
 import time
 import math
 import random
+import copy
 import numpy as np
 import pandas as pd
 from singleCharacterFitch import getFict
@@ -80,11 +81,9 @@ class Node(object):
   def __init__(self):
     self.parent = None
     self.children = []
-
+    self.MaxchildrenNumber=0
     self.visit_times = 0 #访问次数
     self.quality_value = 0.0 #得分
-
-
 
   def set_state(self, state):
     self.state = state
@@ -120,11 +119,9 @@ class Node(object):
     self.quality_value += n
 
   def is_all_expand(self):
-    divisSet=find_can_divis(self.state)
-    sum=1
-    for i in divisSet:
-        sum*=int(math.pow(2,len(i)-1)-2)
-    return len(self.children) == sum
+      if self.MaxchildrenNumber==0:
+          self.MaxchildrenNumber=find_can_divis_number(self.state)
+      return len(self.children) == self.MaxchildrenNumber
 
   def add_child(self, sub_node):
     sub_node.set_parent(self)
@@ -161,12 +158,22 @@ def is_terminal(treeSatus):
         if isinstance(i,list):
             re= True if re and is_terminal(i) else False
     return re
-def find_can_divis(treeSatus):
-    if isinstance(treeSatus[0],int):
-        if len(treeSatus)>2:
-            return [treeSatus]
+def find_can_divis_number(treeStatus):
+    sum=1
+    if isinstance(treeStatus[0],int):
+        if len(treeStatus)>2:
+            return sum*int(math.pow(2,len(treeStatus)-1)-2)
+    for index,i in enumerate(treeStatus):
+        if isinstance(i,list):
+            if is_terminal(i)==False:
+                sum=sum*find_can_divis_number(i)
+    return sum
+def find_can_divis(treeStatus):
+    if isinstance(treeStatus[0],int):
+        if len(treeStatus)>2:
+            return [treeStatus]
     re = []
-    for index,i in enumerate(treeSatus):
+    for index,i in enumerate(treeStatus):
         if isinstance(i,list):
             if is_terminal(i)==False:
                 re.append(i)
@@ -193,13 +200,22 @@ def tree_policy(node):
   return node
 
 def get_next_state_with_random_choice(treeSatus):
-    can_divis=find_can_divis(treeSatus)
-    result=[]
-    for i in can_divis :
-        result.append(random.choice(divis(i)))
-    if len(result)==1:
-        return result[0]
-    return result
+    if is_terminal(treeSatus):
+        return treeSatus
+    if  isinstance(treeSatus[0],int) and len(treeSatus)>2:
+        return random.choice(divis(treeSatus))
+    newTree=copy.deepcopy(treeSatus)
+    for index,i in enumerate(treeSatus):
+        if isinstance(i,list):
+            newTree[index]=get_next_state_with_random_choice(i)
+    return newTree
+    # can_divis=find_can_divis(treeSatus)
+    # result=[]
+    # for i in can_divis :
+    #     result.append(random.choice(divis(i)))
+    # if len(result)==1:
+    #     return result[0]
+    # return result
 
 
 def default_policy(node):
@@ -269,7 +285,7 @@ def best_child(node, is_exploration):
       C = 0.0
 
     # UCB = quality / times + C * sqrt(2 * ln(total_times) / times)
-    left = sub_node.get_quality_value() / sub_node.get_visit_times()
+    left = -sub_node.get_quality_value() / sub_node.get_visit_times()
     right = 2.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
     score = left + C * math.sqrt(right)
 
@@ -307,7 +323,7 @@ def monte_carlo_tree_search(node):
   进行预测时，只需要根据Q值选择exploitation最大的节点即可，找到下一个最优的节点。
   """
 
-  computation_budget = 2
+  computation_budget = 20
 
   # Run as much as possible under the computation budget
   for i in range(computation_budget):
@@ -330,9 +346,9 @@ def readDataTxt(path):
     data=pd.read_table(path,header=None,sep=" ")
     return data
 def main():
-  start=time
+  start=time.time()
   # Create the initialized state and initialized node
-  path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\002号数据集\缺失数据集.txt"
+  path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\001号数据集奇虾\001号含缺失数据集.txt"
   data = readDataTxt(path2)
   li = np.array(data)
   initTree=[ i for i in range(len(li))]
@@ -343,12 +359,13 @@ def main():
   init_node.set_state(initTree)
   current_node =monte_carlo_tree_search(init_node)
   # Set the rounds to play
-  print(time.time()-start)
-  for i in range(10):
-    print("Play round: {}".format(i + 1))
-    current_node = monte_carlo_tree_search(current_node)
-    print("Choose node: {}".format(init_node))
 
-
+  count=0
+  while current_node!=None:
+      print("Play round: {}".format(count + 1))
+      count+=1
+      current_node = monte_carlo_tree_search(current_node)
+      print("Choose node: {}".format(current_node))
+      print(time.time()-start)
 if __name__ == "__main__":
   main()

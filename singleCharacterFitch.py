@@ -48,7 +48,11 @@ class Tree:
         self.postorderInit(root.right,stateList)
         if len(root.val)==1:
             for i in root.val:
-                root.val=set([stateList[int(i)]])
+                try:
+                    root.val=set([stateList[int(i)]])
+                except:
+                    #抓住出现(1)情况错误
+                    root.val = set([stateList[int(i[1:-1])]])
                 break
 
     #后序遍历打印
@@ -385,7 +389,6 @@ def getFict(treeResult,characters):
     count=0
     for i in range(1,len(characters[0])):
         count+=getSingleChararcterFitch(treeResult,characters[:,i])
-    print("count %d" % count)
     return count
 
 if __name__=="__main__":
