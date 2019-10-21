@@ -201,7 +201,7 @@ def tree_policy(node):
       return sub_node
 
   # Return the leaf node
-  return node
+  return node.parent
 
 def get_next_state_with_random_choice(treeSatus):
     if is_terminal(treeSatus):
