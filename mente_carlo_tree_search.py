@@ -14,6 +14,7 @@ from singleCharacterFitch import getFict
 AVAILABLE_CHOICES = [1, -1, 2, -2]
 AVAILABLE_CHOICE_NUMBER = len(AVAILABLE_CHOICES)
 MAX_ROUND_NUMBER = 10
+import logging
 from singleCharacterFitch import readDataTxt
 path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\002号数据集\缺失数据集.txt"
 data = readDataTxt(path2)
@@ -376,6 +377,7 @@ def main():
   init_node.set_state(initTree)
   current_node =monte_carlo_tree_search(init_node)
   # Set the rounds to play
+  logging.basicConfig(filename="out-{}.log".format(time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime())), level=logging.WARNING)
 
   count=0
   print("Play round: {}".format(count))
@@ -384,7 +386,18 @@ def main():
       print("Play round: {}".format(count + 1))
       count+=1
       current_node = monte_carlo_tree_search(current_node)
+      if is_terminal(current_node.get_state())==True:
+          logging.warning("round: {}".format(count+1))
+          logging.warning("result:"+str(current_node.get_state()).replace("[","(").replace("]",")"))
+          logging.warning("fitch treeScore:{}".format(default_policy(current_node)))
+          logging.warning("visit times :{}".format(current_node.get_visit_times()))
+          logging.warning("cost time: {} s".format(int(time.time()-start)))
+          logging.warning("------------------------------------")
+          while current_node.parent!=None:
+              current_node=current_node.parent
+      logging.info("")
       print("Choose node: {}".format(current_node))
       print(time.time()-start)
+
 if __name__ == "__main__":
   main()
