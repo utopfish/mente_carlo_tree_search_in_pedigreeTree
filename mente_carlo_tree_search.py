@@ -161,7 +161,7 @@ def divis2(S):
     result=[]
     if len(S)<3:
         return [S]
-    for x in range(2 ** (len(S) - 1)):
+    while 1:
         x=random.choice(range(2 ** (len(S) - 1)))
         part1 = 0
         part2 = 0
@@ -257,14 +257,17 @@ def get_children(treeStatus):
     return resultTreeNow
 def get_children2(treeStatus):
     if is_terminal(treeStatus):
+        if isinstance(treeStatus[0],int) and len(treeStatus)==1:
+            return treeStatus[0]
         return treeStatus
-    if  isinstance(treeStatus[0],int) and len(treeStatus)>2:
+    elif  isinstance(treeStatus[0],int) and len(treeStatus)>2:
         return divis2(treeStatus)
-    newTree=copy.deepcopy(treeStatus)
-    for index,i in enumerate(treeStatus):
-        if isinstance(i,list):
-            newTree[index]=get_children2(i)
-    return newTree
+    else:
+        newTree=copy.deepcopy(treeStatus)
+        for index,i in enumerate(treeStatus):
+            if isinstance(i,list):
+                newTree[index]=get_children2(i)
+        return newTree
 
 def get_next_state_with_random_choice2(node):
     #对分割结果进行存储
@@ -275,7 +278,6 @@ def get_next_state_with_random_choice2(node):
     return random.choice(node.childrenPool)
 def get_next_state_with_random_choice3(node):
     #随机选择分割结果
-
     return get_children2(node.get_state())
 
 
@@ -387,10 +389,12 @@ def monte_carlo_tree_search(node):
     expand_node = tree_policy(node)
 
     # 2. Random run to add node and get reward
+
     reward = default_policy(expand_node)
 
     # 3. Update all passing nodes with reward
     backup(expand_node, reward)
+
 
   # N. Get the best next node
   best_next_node = best_child(node, False)
@@ -403,7 +407,7 @@ def readDataTxt(path):
 def main():
   start=time.time()
   # Create the initialized state and initialized node
-  path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\003号叶足动物数据集\缺失数据集.txt"
+  path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\005号最简化叶足动物\缺失数据集.txt"
   data = readDataTxt(path2)
   li = np.array(data)
   initTree=[ i for i in range(len(li))]
@@ -420,8 +424,7 @@ def main():
   print("Play round: {}".format(count))
   print("Choose node: {}".format(current_node))
   while current_node!=None:
-      print("Play round: {}".format(count + 1))
-      count+=1
+
       current_node = monte_carlo_tree_search(current_node)
       if is_terminal(current_node.get_state())==True:
           logging.warning("round: {}".format(count+1))
@@ -430,11 +433,14 @@ def main():
           logging.warning("visit times :{}".format(current_node.get_visit_times()))
           logging.warning("cost time: {} s".format(int(time.time()-start)))
           logging.warning("------------------------------------")
+
           while current_node.parent!=None:
               current_node=current_node.parent
-      logging.info("")
+      print("Play round: {}".format(count + 1))
+      count += 1
       print("Choose node: {}".format(current_node))
-      print(time.time()-start)
+      print(time.time() - start)
+
 
 if __name__ == "__main__":
   main()

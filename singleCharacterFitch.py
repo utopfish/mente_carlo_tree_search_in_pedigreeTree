@@ -69,13 +69,6 @@ class Tree:
         self.postorderPrintTracker(root.right)
         print(root.tracker)
 
-
-
-
-
-
-
-
     def firstUppass(self,root,fatherRoot):
         if root==None:
             return
@@ -132,9 +125,6 @@ class Tree:
         else:
             #step8
             self.firstUpass_step8(root)
-
-
-
 
     def firstUpass_step8(self,root):
         if (root.left != None and root.right != None):
@@ -210,6 +200,7 @@ class Tree:
                     root.tracker=True
         self.initialiseTracker(root.left,root)
         self.initialiseTracker(root.right,root)
+
     def secondDownPass(self,root,score):
         if root == None: return
         self.secondDownPass(root.left, score)
@@ -377,18 +368,42 @@ def readDataTxt(path):
     return data
 def getSingleChararcterFitch(treeResult,character):
     tree = Tree(treeResult)
+
     tree.postorderInit(tree.root, character)
+
     tree.postorderGetAllElement(tree.root)
+
     tree.firstDownpass(tree.root)
+
     tree.firstUppass(tree.root, False)
+
     tree.initialiseTracker(tree.root, False)
+
     tree.secondDownPass(tree.root, tree.score)
-    tree.secondUpPass(tree.root, False)
+
+    #tree.secondUpPass(tree.root, False)
     return tree.score[0]
 def getFict(treeResult,characters):
+    star=time.time()
     count=0
     for i in range(1,len(characters[0])):
         count+=getSingleChararcterFitch(treeResult,characters[:,i])
+    # print("fitct 耗时{}".format(time.time()-star))
+    return count
+def getFict2(treeResult,characters):
+    star=time.time()
+    count=0
+
+    for i in range(1,len(characters[0])):
+        tree = Tree(treeResult)
+        tree.postorderInit(tree.root, characters[:,i])
+        tree.postorderGetAllElement(tree.root)
+        tree.firstDownpass(tree.root)
+        tree.firstUppass(tree.root, False)
+        tree.initialiseTracker(tree.root, False)
+        tree.secondDownPass(tree.root, tree.score)
+        count+=tree.score[0]
+    print("fitct 耗时{}".format(time.time() - star))
     return count
 
 if __name__=="__main__":
@@ -399,9 +414,9 @@ if __name__=="__main__":
     d = [2, 1, 0, 0, 0, 0, 0, 1, 0]
     e = [0, '?', '?', 0, 0, 1, 0, 1, 0]
     f = [0, 1, 1, '-', '?', '-', 1, 1, 0]
-    path=r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\001号数据集奇虾\001号含缺失数据集.txt"
-    path2=r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\002号数据集\缺失数据集.txt"
-    data=readDataTxt(path2)
+    path=r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\005号最简化叶足动物\缺失数据集.txt"
+    path2=r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\003号叶足动物数据集\缺失数据集.txt"
+    data=readDataTxt(path)
     # result=readResultTxt(path2)
     #tnt运行结果
     result10="(0,(7,((((1,2),(3,4)),(5,6)),((8,(9,(10,11))),((12,13),(14,15))))))"
@@ -418,13 +433,14 @@ if __name__=="__main__":
     result25 ="(0,(1,(((2,(3,9)),(10,((11,(14,(12,13))),((15,16),((17,18),(19,20)))))),(4,(5,(7,(6,8)))))))"
 
     li=np.array(data)
-    count=0
-    start=time.time()
-    for i in range(1,len(li[0])):
-        print(li[:,i])
-        count+=getSingleChararcterFitch(result22,li[:,i])
-    print("count %d" % count)
-    print("耗时{}".format(time.time()-start))
+
+    print(getFict("((1),(((2),(0, 3)),(4)))",li))
+    # print(getFict2(result22,li))
+    # for i in range(1,len(li[0])):
+    #     print(li[:,i])
+    #     count+=getSingleChararcterFitch(result22,li[:,i])
+    # print("count %d" % count)
+    # print("耗时{}".format(time.time()-start))
 
 
 
