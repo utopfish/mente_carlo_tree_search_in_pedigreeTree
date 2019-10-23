@@ -155,6 +155,29 @@ def divis(S):
         if abs(part2 - part1) < D:
             result.append([s1,s2])
     return result
+def divis2(S):
+    #返回一个结果
+    D = np.sum(S)
+    result=[]
+    if len(S)<3:
+        return [S]
+    for x in range(2 ** (len(S) - 1)):
+        x=random.choice(range(2 ** (len(S) - 1)))
+        part1 = 0
+        part2 = 0
+        s1 = []
+        s2 = []
+        for i in range(len(S)):
+            if (x >> i) % 2 == 1:
+                part1 += S[i]
+                s1.append(S[i])
+            else:
+                s2.append(S[i])
+                part2 += S[i]
+        if abs(part2 - part1) < D:
+            return [s1,s2]
+
+
 def is_terminal(treeSatus):
     if isinstance(treeSatus[0],int):
         return False if len(treeSatus)>2 else True
@@ -219,11 +242,9 @@ def get_children(treeStatus):
         return [treeStatus]
     if isinstance(treeStatus[0], int) and len(treeStatus) > 2:
         return divis(treeStatus)
-
     newTree = copy.deepcopy(treeStatus)
     resultTreeNow = []
     resultTreeNow.append(newTree)
-
     for index, i in enumerate(treeStatus):
         if isinstance(i, list):
             resultTreePre=copy.deepcopy(resultTreeNow)
@@ -234,12 +255,28 @@ def get_children(treeStatus):
                     newtr[index] = k
                     resultTreeNow.append(newtr)
     return resultTreeNow
+def get_children2(treeStatus):
+    if is_terminal(treeStatus):
+        return treeStatus
+    if  isinstance(treeStatus[0],int) and len(treeStatus)>2:
+        return divis2(treeStatus)
+    newTree=copy.deepcopy(treeStatus)
+    for index,i in enumerate(treeStatus):
+        if isinstance(i,list):
+            newTree[index]=get_children2(i)
+    return newTree
+
 def get_next_state_with_random_choice2(node):
+    #对分割结果进行存储
     if len(node.childrenPool):
         pass
     else:
         node.childrenPool=get_children(node.get_state())
     return random.choice(node.childrenPool)
+def get_next_state_with_random_choice3(node):
+    #随机选择分割结果
+
+    return get_children2(node.get_state())
 
 
 
@@ -271,11 +308,11 @@ def expand(node):
       sub_node.get_state() for sub_node in node.get_children()
   ]
 
-  new_state = get_next_state_with_random_choice2(node)
+  new_state = get_next_state_with_random_choice3(node)
 
   # Check until get the new state which has the different action from others
   while new_state in tried_sub_node_states:
-    new_state = get_next_state_with_random_choice2(node)
+    new_state = get_next_state_with_random_choice3(node)
 
   sub_node = Node()
   sub_node.set_state(new_state)
