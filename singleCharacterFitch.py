@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import time
+
 import json
 class Node():
     def __init__(self,val,left=None,right=None):
@@ -384,11 +385,9 @@ def getSingleChararcterFitch(treeResult,character):
     #tree.secondUpPass(tree.root, False)
     return tree.score[0]
 def getFict(treeResult,characters):
-    star=time.time()
     count=0
     for i in range(1,len(characters[0])):
         count+=getSingleChararcterFitch(treeResult,characters[:,i])
-    # print("fitct 耗时{}".format(time.time()-star))
     return count
 def getFict2(treeResult,characters):
     star=time.time()
@@ -434,13 +433,11 @@ if __name__=="__main__":
 
     li=np.array(data)
 
-    print(getFict("((1),(((2),(0, 3)),(4)))",li))
-    # print(getFict2(result22,li))
-    # for i in range(1,len(li[0])):
-    #     print(li[:,i])
-    #     count+=getSingleChararcterFitch(result22,li[:,i])
-    # print("count %d" % count)
-    # print("耗时{}".format(time.time()-start))
+    te=["((0,1),(2,(3,4)))","({0,1,2,3},4)"]
+    for i in te:
+        print("{}:{}".format(i,getFict(i,li)))
+        print("{}:{}".format(i, default_policy(i)))
+
 
 
 

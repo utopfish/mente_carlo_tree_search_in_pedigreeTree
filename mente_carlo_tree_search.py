@@ -20,59 +20,6 @@ path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleC
 data = readDataTxt(path2)
 
 li = np.array(data)
-class State(object):
-  """
-  蒙特卡罗树搜索的游戏状态，记录在某一个Node节点下的状态数据，包含当前的游戏得分、当前的游戏round数、从开始到当前的执行记录。
-  需要实现判断当前状态是否达到游戏结束状态，支持从Action集合中随机取出操作。
-  """
-
-  def __init__(self):
-    self.current_value = 0.0
-    # For the first root node, the index is 0 and the game should start from 1
-    self.current_round_index = 0
-    self.cumulative_choices = []
-
-  def get_current_value(self):
-    return self.current_value
-
-  def set_current_value(self, value):
-    self.current_value = value
-
-  def get_current_round_index(self):
-    return self.current_round_index
-
-  def set_current_round_index(self, turn):
-    self.current_round_index = turn
-
-  def get_cumulative_choices(self):
-    return self.cumulative_choices
-
-  def set_cumulative_choices(self, choices):
-    self.cumulative_choices = choices
-
-  def is_terminal(self):
-    # The round index starts from 1 to max round number
-    return self.current_round_index == MAX_ROUND_NUMBER
-
-  def compute_reward(self):
-    return -abs(1 - self.current_value)
-
-  def get_next_state_with_random_choice(self):
-    random_choice = random.choice([choice for choice in AVAILABLE_CHOICES])
-
-    next_state = State()
-    next_state.set_current_value(self.current_value + random_choice)
-    next_state.set_current_round_index(self.current_round_index + 1)
-    next_state.set_cumulative_choices(self.cumulative_choices +
-                                      [random_choice])
-
-    return next_state
-
-  def __repr__(self):
-    return "State: {}, value: {}, round: {}, choices: {}".format(
-        hash(self), self.current_value, self.current_round_index,
-        self.cumulative_choices)
-
 
 class Node(object):
   """
@@ -85,6 +32,7 @@ class Node(object):
     self.MaxchildrenNumber=0
     self.visit_times = 0 #访问次数
     self.quality_value = 0.0 #得分
+    self.fitch_score=0
     self.childrenPool=[] #chilidren的待选库
 
 
@@ -121,6 +69,12 @@ class Node(object):
   def quality_value_add_n(self, n):
     self.quality_value += n
 
+  def get_fitch_score(self):
+    return self.fitch_score
+
+  def fitch_score_add_n(self,n):
+    self.fitch_score+=n
+
   def is_all_expand(self):
       if self.MaxchildrenNumber==0:
           self.MaxchildrenNumber=find_can_divis_number(self.state)
@@ -131,8 +85,8 @@ class Node(object):
     self.children.append(sub_node)
 
   def __repr__(self):
-    return "Node: {}, Q/N: {}/{}, state: {}".format(
-        hash(self), self.quality_value, self.visit_times, self.state)
+    return "Node: {},fitch:{}, Q/N: {}/{}, state: {}".format(
+        hash(self), self.fitch_score,self.quality_value, self.visit_times, self.state)
 
 
 def divis(S):
@@ -219,7 +173,7 @@ def tree_policy(node):
   while is_terminal(node.get_state()) == False:
         #判断是否可能的结果全部探索完，这里可以用来限制探索的广度
     if node.is_all_expand():
-      node = best_child(node, True)
+      node = best_child2(node, True)
     else:
       # Return the new sub node
       sub_node = expand(node)
@@ -284,14 +238,14 @@ def get_next_state_with_random_choice3(node):
 
 
 
-def default_policy(node):
+def default_policy(current_state):
   """
   蒙特卡罗树搜索的Simulation阶段，输入一个需要expand的节点，随机操作后创建新的节点，返回新增节点的reward。注意输入的节点应该不是子节点，而且是有未执行的Action可以expend的。
   基本策略是随机选择Action。
   """
 
   # Get the state of the game
-  current_state = node.get_state()
+
   res=find_can_divis(current_state)
   current_state=str(current_state)
   for i in res:
@@ -354,6 +308,36 @@ def best_child(node, is_exploration):
 
   return best_sub_node
 
+def best_child2(node, is_exploration):
+  """
+  使用UCB算法，权衡exploration和exploitation后选择得分最高的子节点，注意如果是预测阶段直接选择当前Q值得分最高的。
+  """
+
+  # TODO: Use the min float value
+  best_score = sys.maxsize
+  best_sub_node = None
+
+  # Travel all sub nodes to find the best one
+  for sub_node in node.get_children():
+
+    # Ignore exploration for inference
+    if is_exploration:
+      C = 1 / math.sqrt(2.0)
+    else:
+      C = 0.0
+
+    # UCB = quality / times + C * sqrt(2 * ln(total_times) / times)
+    # left = -sub_node.get_fitch_score / sub_node.get_visit_times()
+    # right = 2.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
+    # score = left + C * math.sqrt(right)
+    score=sub_node.get_fitch_score()
+
+    if score < best_score:
+      best_sub_node = sub_node
+      best_score = score
+
+
+  return best_sub_node
 
 def backup(node, reward):
   """
@@ -370,6 +354,12 @@ def backup(node, reward):
 
     # Change the node to the parent node
     node = node.parent
+def backup2(node,reward):
+    if node.get_fitch_score()==0:
+        node.fitch_score_add_n(reward)
+    if node.parent!=None:
+        node.parent.quality_value_add_n(reward)
+        node.parent.visit_times_add_one()
 
 
 def monte_carlo_tree_search(node):
@@ -392,14 +382,14 @@ def monte_carlo_tree_search(node):
 
     # 2. Random run to add node and get reward
 
-    reward = default_policy(expand_node)
+    reward = default_policy(expand_node.get_state())
 
     # 3. Update all passing nodes with reward
-    backup(expand_node, reward)
+    backup2(expand_node, reward)
 
 
   # N. Get the best next node
-  best_next_node = best_child(node, False)
+  best_next_node = best_child2(node, False)
 
   return best_next_node
 
