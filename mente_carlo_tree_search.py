@@ -180,7 +180,8 @@ def divis2(S):
 
 def is_terminal(treeSatus):
     if isinstance(treeSatus[0],int):
-        return False if len(treeSatus)>2 else True
+        if len(treeSatus)>2 and isinstance(treeSatus[1],int):
+            return False if len(treeSatus)>2 else True
     re = True
     for index,i in enumerate(treeSatus):
         if isinstance(i,list):
@@ -225,7 +226,7 @@ def tree_policy(node):
       return sub_node
 
   # Return the leaf node
-  return node.parent
+  return node
 
 def get_next_state_with_random_choice(treeSatus):
     if is_terminal(treeSatus):
@@ -344,7 +345,8 @@ def best_child(node, is_exploration):
     # UCB = quality / times + C * sqrt(2 * ln(total_times) / times)
     left = -sub_node.get_quality_value() / sub_node.get_visit_times()
     right = 2.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
-    score = left + C * math.sqrt(right)
+    # score = left + C * math.sqrt(right)
+    score=left
 
     if score > best_score:
       best_sub_node = sub_node
@@ -426,6 +428,10 @@ def main():
   while current_node!=None:
 
       current_node = monte_carlo_tree_search(current_node)
+      print("Play round: {}".format(count + 1))
+      count += 1
+      print("Choose node: {}".format(current_node))
+      print(time.time() - start)
       if is_terminal(current_node.get_state())==True:
           logging.warning("round: {}".format(count+1))
           logging.warning("result:"+str(current_node.get_state()).replace("[","(").replace("]",")"))
@@ -436,10 +442,7 @@ def main():
 
           while current_node.parent!=None:
               current_node=current_node.parent
-      print("Play round: {}".format(count + 1))
-      count += 1
-      print("Choose node: {}".format(current_node))
-      print(time.time() - start)
+
 
 
 if __name__ == "__main__":

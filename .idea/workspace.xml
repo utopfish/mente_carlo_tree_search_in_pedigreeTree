@@ -6,9 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2285d5e1-afd7-4dc2-860e-ec4e1f1e30c8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mente_carlo_tree_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/mente_carlo_tree_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/singleCharacterFitch.py" beforeDir="false" afterPath="$PROJECT_DIR$/singleCharacterFitch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +19,7 @@
     <SUITE FILE_PATH="coverage/singleCharacterFitch$plot.coverage" NAME="plot Coverage Results" MODIFIED="1553841477469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$test.coverage" NAME="test Coverage Results" MODIFIED="1571388363427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singleCharacterFitch$mente_carlo_tree_search.coverage" NAME="mente_carlo_tree_search Coverage Results" MODIFIED="1571319195825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$mente_carlo_tree_search.coverage" NAME="mente_carlo_tree_search Coverage Results" MODIFIED="1571845623436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$mente_carlo_tree_search.coverage" NAME="mente_carlo_tree_search Coverage Results" MODIFIED="1572014023965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$captcha_spider.coverage" NAME="captcha_spider Coverage Results" MODIFIED="1571487277513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="H:/国信工作/爬虫开发/spider_for_gsxt" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$test2.coverage" NAME="test2 Coverage Results" MODIFIED="1571840912738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singleCharacterFitch$main.coverage" NAME="main Coverage Results" MODIFIED="1555056004863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -109,59 +108,64 @@
           <entry key="project.open.time.47" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.57" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.open.time.58" value="1" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="md" value="4390" />
-          <entry key="py" value="1638" />
+          <entry key="md" value="5823" />
+          <entry key="py" value="1694" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Markdown" value="4390" />
+          <entry key="Markdown" value="5823" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="1638" />
+          <entry key="Python" value="1694" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="log" value="7" />
-          <entry key="md" value="8" />
-          <entry key="py" value="16" />
+          <entry key="log" value="9" />
+          <entry key="md" value="10" />
+          <entry key="py" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Log" value="7" />
-          <entry key="Markdown" value="8" />
-          <entry key="Python" value="16" />
+          <entry key="Log" value="9" />
+          <entry key="Markdown" value="10" />
+          <entry key="Python" value="17" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mente_carlo_tree_search.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="407" column="69" selection-start-line="407" selection-start-column="69" selection-end-line="407" selection-end-column="69" />
+            <state relative-caret-position="73">
+              <caret line="433" column="32" selection-start-line="433" selection-start-column="32" selection-end-line="433" selection-end-column="32" />
               <folding>
                 <element signature="e#126#136#0" expanded="true" />
-                <element signature="e#6126#6475#0" />
-                <marker date="1571845392846" expanded="true" signature="7781:7786" ph="..." />
+                <marker date="1572014023951" expanded="true" signature="7938:7943" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/out-2019-10-23_23_47_04.log">
+          <provider selected="true" editor-type-id="LogFileEditorProvider" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
+            <state relative-caret-position="990">
               <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
               <folding>
                 <element signature="e#107#125#0" expanded="true" />
@@ -170,11 +174,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/singleCharacterFitch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="416" column="68" selection-start-line="416" selection-start-column="68" selection-end-line="416" selection-end-column="68" />
+            <state relative-caret-position="12120">
+              <caret line="436" column="38" selection-start-line="436" selection-start-column="38" selection-end-line="436" selection-end-column="38" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#764#852#0" />
@@ -182,13 +186,17 @@
                 <element signature="e#1181#1590#0" />
                 <element signature="e#1647#1786#0" />
                 <element signature="e#1837#1994#0" />
-                <element signature="e#2054#4191#0" />
-                <element signature="e#4241#5742#0" />
-                <element signature="e#5786#6698#0" />
-                <element signature="e#6757#7244#0" />
-                <marker date="1571845417273" expanded="true" signature="13283:13284" ph="..." />
-                <marker date="1571845417273" expanded="true" signature="13283:13462" ph="..." />
+                <marker date="1571845536762" expanded="true" signature="13283:13284" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/out-2019-10-23_23_43_13.log">
+          <provider selected="true" editor-type-id="LogFileEditorProvider">
+            <state relative-caret-position="960">
+              <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -196,8 +204,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+            <state relative-caret-position="270">
+              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
               <folding>
                 <element signature="e#108#119#0" expanded="true" />
               </folding>
@@ -261,8 +269,9 @@
         <option value="H:/myWeb/source/_posts/读波德里亚消费社会.md" />
         <option value="H:/myWeb/source/_posts/读木心摘抄.md" />
         <option value="$PROJECT_DIR$/test2.py" />
-        <option value="$PROJECT_DIR$/mente_carlo_tree_search.py" />
         <option value="$PROJECT_DIR$/singleCharacterFitch.py" />
+        <option value="H:/myWeb/source/_posts/读禅与摩托车修理艺术.md" />
+        <option value="$PROJECT_DIR$/mente_carlo_tree_search.py" />
       </list>
     </option>
   </component>
@@ -273,10 +282,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="195" />
-    <option name="y" value="2" />
+    <option name="x" value="129" />
+    <option name="y" value="36" />
     <option name="width" value="1940" />
-    <option name="height" value="1100" />
+    <option name="height" value="1069" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -299,7 +308,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="H:/myWeb/source/_posts/读波德里亚消费社会.md" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -316,7 +325,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.singleCharacterFitch">
+  <component name="RunManager" selected="Python.mente_carlo_tree_search">
     <configuration name="captcha_spider" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="singleCharacterFitch" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -462,16 +471,15 @@
     <option name="totallyTimeSpent" value="385000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="195" y="2" width="1940" height="1100" extended-state="0" />
-    <editor active="true" />
+    <frame x="129" y="36" width="1940" height="1069" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1462766" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14787234" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.40062112" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.38716355" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5058824" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.5743315" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -579,16 +587,6 @@
     <entry file="file://$PROJECT_DIR$/singCharacterFitch流程图.mdj">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://H:/myWeb/source/_posts/读波德里亚消费社会.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="300">
-            <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="12" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://H:/myWeb/source/_posts/柳絮篇.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -669,33 +667,9 @@
     <entry file="file://$PROJECT_DIR$/out-2019-10-22_00_13_00.log" />
     <entry file="file://$PROJECT_DIR$/out-2019-10-22_00_15_13.log" />
     <entry file="file://$PROJECT_DIR$/out-2019-10-22_00_17_45.log" />
-    <entry file="file://$PROJECT_DIR$/out-2019-10-22_00_21_58.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out-2019-10-22_00_24_18.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="379">
-          <caret line="23256" lean-forward="true" selection-start-line="23256" selection-end-line="23256" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out-2019-10-22_11_16_32.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="60">
-          <caret line="446" column="32" lean-forward="true" selection-start-line="446" selection-start-column="32" selection-end-line="446" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding>
-            <element signature="e#107#125#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/out-2019-10-22_00_21_58.log" />
+    <entry file="file://$PROJECT_DIR$/out-2019-10-22_00_24_18.log" />
+    <entry file="file://$PROJECT_DIR$/out-2019-10-22_11_16_32.log" />
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -703,32 +677,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding>
-            <element signature="e#108#119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/out-2019-10-23_23_47_04.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/mente_carlo_tree_search.py">
+    <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="407" column="69" selection-start-line="407" selection-start-column="69" selection-end-line="407" selection-end-column="69" />
+        <state relative-caret-position="990">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
           <folding>
-            <element signature="e#126#136#0" expanded="true" />
-            <element signature="e#6126#6475#0" />
-            <marker date="1571845392846" expanded="true" signature="7781:7786" ph="..." />
+            <element signature="e#107#125#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/singleCharacterFitch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="416" column="68" selection-start-line="416" selection-start-column="68" selection-end-line="416" selection-end-column="68" />
+        <state relative-caret-position="12120">
+          <caret line="436" column="38" selection-start-line="436" selection-start-column="38" selection-end-line="436" selection-end-column="38" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#764#852#0" />
@@ -736,12 +701,62 @@
             <element signature="e#1181#1590#0" />
             <element signature="e#1647#1786#0" />
             <element signature="e#1837#1994#0" />
-            <element signature="e#2054#4191#0" />
-            <element signature="e#4241#5742#0" />
-            <element signature="e#5786#6698#0" />
-            <element signature="e#6757#7244#0" />
-            <marker date="1571845417273" expanded="true" signature="13283:13284" ph="..." />
-            <marker date="1571845417273" expanded="true" signature="13283:13462" ph="..." />
+            <marker date="1571845536762" expanded="true" signature="13283:13284" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out-2019-10-23_23_43_13.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="960">
+          <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+          <folding>
+            <element signature="e#108#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://H:/myWeb/source/_posts/读禅与摩托车修理艺术.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="90">
+            <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://H:/myWeb/source/_posts/读波德里亚消费社会.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="390">
+            <caret line="16" selection-start-line="16" selection-end-line="17" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://I:/python354/Lib/logging/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="1828" selection-start-line="1828" selection-end-line="1828" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mente_carlo_tree_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="433" column="32" selection-start-line="433" selection-start-column="32" selection-end-line="433" selection-end-column="32" />
+          <folding>
+            <element signature="e#126#136#0" expanded="true" />
+            <marker date="1572014023951" expanded="true" signature="7938:7943" ph="..." />
           </folding>
         </state>
       </provider>
