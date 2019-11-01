@@ -36,6 +36,7 @@ class Node(object):
         self.fitch_score = 0
         self.score=None
         self.childrenPool = []  # chilidren的待选库
+        self.is_all_explored=False
 
     def set_state(self, state):
         self.state = state
@@ -92,11 +93,9 @@ class Node(object):
             return "NodeScore: {},fitch:{}, Q/N: {}, visit_time:{},state: {}".format(
                 self.score,
                 self.fitch_score , self.quality_value/self.visit_times,self.visit_times, self.state)
-        # else:
-        #     return "NodeScore: {},fitch:{}, Q/N: {}, state: {}".format(
-        #         self.get_quality_value() / self.get_visit_times(),
-        #         self.fitch_score / self.quality_value, self.visit_times, self.state)
-
+        else:
+            return "NodeScore: {},fitch:{}, Q/N: {}, visit_time:{},state: {}".format(
+                self.score,self.fitch_score, self.quality_value / self.visit_times, self.visit_times, self.state)
 
 def divis(S):
     '''
@@ -123,7 +122,6 @@ def divis(S):
             result.append([s1, s2])
     return result
 
-
 def divis2(S):
     # 返回一个结果
     if len(S) < 3:
@@ -144,7 +142,6 @@ def divis2(S):
         if part1 != 0 and part2 != 0:
             return [s1, s2]
 
-
 def is_terminal(treeSatus):
     '''
     判断树结构是否继续可分
@@ -164,7 +161,7 @@ def is_terminal(treeSatus):
 def find_can_divis_number(treeStatus):
     '''
     判断树结构所有可分组合数量
-    :param treeStatus: str
+    :param treeStatus: list
     :return:
     '''
     sum = 1
@@ -175,6 +172,8 @@ def find_can_divis_number(treeStatus):
         if isinstance(i, list):
             if is_terminal(i) == False:
                 sum = sum * find_can_divis_number(i)
+    if sum==1:
+        return 0
     return sum
 
 
@@ -202,7 +201,7 @@ def tree_policy(node):
     """
 
     # Check if the current node is the leaf node
-    while is_terminal(node.get_state()) == False:
+    while node!=None and is_terminal(node.get_state()) == False:
         # 判断是否可能的结果全部探索完，这里可以用来限制探索的广度
         if node.is_all_expand():
             node = best_child(node, True)
@@ -290,6 +289,14 @@ def get_next_state_with_random_choice3(node):
     # 随机选择分割结果
     return get_children2(node.get_state())
 
+def is_allexplored(node):
+    if not node.is_all_expand():
+        return False
+    result=True
+    for i in node.get_children():
+        result=result and is_allexplored(i)
+    node.is_all_explored=result
+    return result
 
 def default_policy(current_state):
     """
@@ -346,6 +353,7 @@ def best_child(node, is_exploration):
     best_sub_node = None
 
     # Travel all sub nodes to find the best one
+    t=node.get_children()
     for sub_node in node.get_children():
 
         # Ignore exploration for inference
@@ -361,13 +369,12 @@ def best_child(node, is_exploration):
         # score = left
 
         sub_node.score=score
-        if sub_node.MaxchildrenNumber!=len(sub_node.get_children()) and score < best_score:
-            best_sub_node = sub_node
-            best_score = score
-        elif score < best_score:
+        if not is_allexplored(sub_node) and score < best_score:
             best_sub_node = sub_node
             best_score = score
 
+    if best_score==sys.maxsize:
+        best_sub_node=node.parent
     return best_sub_node
 
 
@@ -445,13 +452,16 @@ def monte_carlo_tree_search(node):
         expand_node = tree_policy(node)
 
         # 2. Random run to add node and get reward
-
+        if expand_node==None:
+            break
         reward = default_policy(expand_node.get_state())
 
         # 3. Update all passing nodes with reward
         backup(expand_node, reward)
 
     # N. Get the best next node
+    if node==None:
+        return None
     best_next_node = best_child(node, True)
 
     return best_next_node
@@ -464,7 +474,7 @@ def readDataTxt(path):
 def main():
     start = time.time()
     # Create the initialized state and initialized node
-    path1 = r"005号最简化叶足动物\缺失数据集.txt"
+    path1 = r"C:\liuAmon_core_code\mente_carlo_tree_search_in_pedigreeTree\testData\011号简化数据集奇虾\011号完整数据集.txt"
     data = readDataTxt(path1)
     li = np.array(data)
     initTree = [i for i in range(len(li))]
@@ -480,13 +490,28 @@ def main():
     count = 0
     print("Play round: {}".format(count))
     print("Choose node: {}".format(current_node))
+    global treeResult
+    temp = sorted(treeResult.items())
+    treeResult = {}
+    treeResult[temp[0][0]] = temp[0][1]
+    print(treeResult)
+    print("最短树长个数:{}".format(len(temp[0][1])))
+    # print("最短树长个数:{}".format(len(temp[0][1])))
     while current_node != None:
 
         current_node = monte_carlo_tree_search(current_node)
+        if current_node==None:
+            break
         print("Play round: {}".format(count + 1))
         count += 1
         print("Choose node: {}".format(current_node))
         print(time.time() - start)
+        global treeResult
+        temp = sorted(treeResult.items())
+        treeResult = {}
+        treeResult[temp[0][0]] = temp[0][1]
+        print(treeResult)
+        print("最短树长个数:{}".format(len(temp[0][1])))
         if is_terminal(current_node.get_state()) == True:
             # logging.warning("round: {}".format(count + 1))
             # logging.warning("result:" + str(current_node.get_state()).replace("[", "(").replace("]", ")"))
@@ -495,12 +520,12 @@ def main():
             # logging.warning("cost time: {} s".format(int(time.time() - start)))
             # logging.warning("------------------------------------")
 
-            global treeResult
-            temp=sorted(treeResult.items())
-            treeResult={}
-            treeResult[temp[0][0]]=temp[0][1]
-            print(treeResult)
-            print("最短树长个数:{}".format(len(temp[0][1])))
+            # global treeResult
+            # temp=sorted(treeResult.items())
+            # treeResult={}
+            # treeResult[temp[0][0]]=temp[0][1]
+            # print(treeResult)
+            # print("最短树长个数:{}".format(len(temp[0][1])))
             while current_node.parent != None:
                 current_node = current_node.parent
 
