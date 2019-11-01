@@ -4,20 +4,18 @@
 # @file:mente_carlo_tree_search.py
 # @time: 2019/10/17 21:32
 import sys
+import copy
 import time
 import math
 import random
-import copy
+import logging
 import numpy as np
 import pandas as pd
 from singleCharacterFitch import getFict
-
-AVAILABLE_CHOICES = [1, -1, 2, -2]
-AVAILABLE_CHOICE_NUMBER = len(AVAILABLE_CHOICES)
-MAX_ROUND_NUMBER = 10
-import logging
 from singleCharacterFitch import readDataTxt
 
+global treeResult
+treeResult={}
 path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\011号简化数据集奇虾\011号完整数据集.txt"
 data = readDataTxt(path2)
 
@@ -101,7 +99,11 @@ class Node(object):
 
 
 def divis(S):
-    D = np.sum(S)
+    '''
+    返回所有可分类结果
+    :param S:
+    :return:
+    '''
     result = []
     if len(S) < 3:
         return [S]
@@ -124,8 +126,6 @@ def divis(S):
 
 def divis2(S):
     # 返回一个结果
-    D = np.sum(S)
-    result = []
     if len(S) < 3:
         return [S]
     while 1:
@@ -146,6 +146,11 @@ def divis2(S):
 
 
 def is_terminal(treeSatus):
+    '''
+    判断树结构是否继续可分
+    :param treeSatus: str
+    :return:
+    '''
     if isinstance(treeSatus[0], int):
         if len(treeSatus) > 2 and isinstance(treeSatus[1], int):
             return False if len(treeSatus) > 2 else True
@@ -157,6 +162,11 @@ def is_terminal(treeSatus):
 
 
 def find_can_divis_number(treeStatus):
+    '''
+    判断树结构所有可分组合数量
+    :param treeStatus: str
+    :return:
+    '''
     sum = 1
     if isinstance(treeStatus[0], int):
         if len(treeStatus) > 2:
@@ -169,6 +179,11 @@ def find_can_divis_number(treeStatus):
 
 
 def find_can_divis(treeStatus):
+    '''
+    找到树结构中可进行继续划分的部分
+    :param treeStatus:
+    :return:
+    '''
     if isinstance(treeStatus[0], int):
         if len(treeStatus) > 2:
             return [treeStatus]
@@ -201,6 +216,11 @@ def tree_policy(node):
 
 
 def get_next_state_with_random_choice(treeSatus):
+    '''
+    随机获取下一个树结构
+    :param treeSatus:
+    :return:
+    '''
     if is_terminal(treeSatus):
         return treeSatus
     if isinstance(treeSatus[0], int) and len(treeSatus) > 2:
@@ -213,6 +233,11 @@ def get_next_state_with_random_choice(treeSatus):
 
 
 def get_children(treeStatus):
+    '''
+    获取所有可能的子节点树结构
+    :param treeStatus:
+    :return:
+    '''
     if is_terminal(treeStatus):
         return [treeStatus]
     if isinstance(treeStatus[0], int) and len(treeStatus) > 2:
@@ -233,6 +258,11 @@ def get_children(treeStatus):
 
 
 def get_children2(treeStatus):
+    '''
+    获取随机一个子节点树结构
+    :param treeStatus:
+    :return:
+    '''
     if is_terminal(treeStatus):
         if isinstance(treeStatus[0], int) and len(treeStatus) == 1:
             return treeStatus[0]
@@ -275,8 +305,12 @@ def default_policy(current_state):
     for i in res:
         current_state = current_state.replace(str(i), str(i).replace("[", "{").replace("]", "}"))
     current_state = current_state.replace("[", "(").replace("]", ")").replace(" ", "")
-
-    return getFict(current_state, li)
+    treeScore=getFict(current_state, li)
+    if treeScore not in treeResult:
+        treeResult[treeScore]=[current_state]
+    elif current_state not in treeResult[treeScore]:
+        treeResult[treeScore].append(current_state)
+    return treeScore
 
 
 def expand(node):
@@ -312,7 +346,6 @@ def best_child(node, is_exploration):
     best_sub_node = None
 
     # Travel all sub nodes to find the best one
-    t=node.get_children()
     for sub_node in node.get_children():
 
         # Ignore exploration for inference
@@ -323,12 +356,15 @@ def best_child(node, is_exploration):
 
         # UCB = quality / times + C * sqrt(2 * ln(total_times) / times)
         left = sub_node.get_quality_value() / sub_node.get_visit_times()
-        right = 3.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
+        right = 5.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
         score = left - C * math.sqrt(right)
         # score = left
-        if sub_node.score==None:
-            sub_node.score=score
-        if score < best_score:
+
+        sub_node.score=score
+        if sub_node.MaxchildrenNumber!=len(sub_node.get_children()) and score < best_score:
+            best_sub_node = sub_node
+            best_score = score
+        elif score < best_score:
             best_sub_node = sub_node
             best_score = score
 
@@ -425,22 +461,19 @@ def readDataTxt(path):
     data = pd.read_table(path, header=None, sep=" ")
     return data
 
-
 def main():
     start = time.time()
     # Create the initialized state and initialized node
-    path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\005号最简化叶足动物\缺失数据集.txt"
-    path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\011号简化数据集奇虾\011号完整数据集.txt"
-    data = readDataTxt(path2)
+    path1 = r"005号最简化叶足动物\缺失数据集.txt"
+    data = readDataTxt(path1)
     li = np.array(data)
     initTree = [i for i in range(len(li))]
-    # initTree = [i for i in range(6)]
-    print(initTree)
+
 
     init_node = Node()
     init_node.set_state(initTree)
     current_node = monte_carlo_tree_search(init_node)
-    # Set the rounds to play
+
     # logging.basicConfig(filename="out-{}.log".format(time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime())),
     #                     level=logging.WARNING)
 
@@ -462,9 +495,22 @@ def main():
             # logging.warning("cost time: {} s".format(int(time.time() - start)))
             # logging.warning("------------------------------------")
 
+            global treeResult
+            temp=sorted(treeResult.items())
+            treeResult={}
+            treeResult[temp[0][0]]=temp[0][1]
+            print(treeResult)
+            print("最短树长个数:{}".format(len(temp[0][1])))
             while current_node.parent != None:
                 current_node = current_node.parent
 
 
 if __name__ == "__main__":
+    #TODO 编写用例
+    #TODO 使用list装最小树得分的树(已完成)
+    #TODO 加速fitch算法
+    #TODO 对部分不可枝进行提前删除，eg：通过距离，通过初始树
+    #TODO 代码整理
+    #TODO 对打分部分进行整理
+    #TODO 加入Alpha-beta方法
     main()

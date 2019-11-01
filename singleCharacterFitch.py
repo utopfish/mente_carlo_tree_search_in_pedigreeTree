@@ -1,8 +1,8 @@
-import pandas as pd
-import numpy as np
 import time
+import numpy as np
+import pandas as pd
 
-import json
+
 class Node():
     def __init__(self,val,left=None,right=None):
         self.val=val
@@ -436,7 +436,6 @@ if __name__=="__main__":
     te=["((0,1),(2,(3,4)))","({0,1,2,3},4)"]
     for i in te:
         print("{}:{}".format(i,getFict(i,li)))
-        print("{}:{}".format(i, default_policy(i)))
 
 
 

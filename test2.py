@@ -12,15 +12,22 @@ path = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCh
 data = readDataTxt(path)
 li=np.array(data)
 
-def analysis(test,num):
+def analysis(test,num,result):
     while is_terminal(test)==False:
         s=get_children(test)
         for i in s:
-
             print("   "*num,end="")
-            print("{}:{}".format(i, default_policy(i)))
-            analysis(i,num+1)
+            treeScore=default_policy(i)
+            print("{}:{}".format(i, treeScore))
+
+            if is_terminal(i):
+                if treeScore not in result:
+                    result[treeScore]=[i]
+                elif i not in result[treeScore]:
+                    result[treeScore].append(i)
+            analysis(i, num + 1, result)
         break
+    return result
 
 
 
@@ -29,7 +36,7 @@ def analysis(test,num):
 if __name__=="__main__":
     te=[i for i in range(3)]
     s=get_children(te)
-
     test = [ i for i in range(len(li))]
-    analysis(test,0)
-    print(default_policy("((0,1),(2,(3,4)))"))
+    te=analysis(test,0,{})
+    temp=sorted(te)
+    print(len(te[temp[0]]))
