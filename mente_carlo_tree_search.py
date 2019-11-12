@@ -15,8 +15,8 @@ from singleCharacterFitch import getFict
 from singleCharacterFitch import readDataTxt
 
 global treeResult
-treeResult={}
-path2 = r"F:\实验室谱系树一切相关\谱系树软件\自研代码\singleCharacter-Fitch验证数据集\011号简化数据集奇虾\011号完整数据集.txt"
+treeResult = {}
+path2 = r"testData\011号简化数据集奇虾\011号完整数据集.txt"
 data = readDataTxt(path2)
 
 li = np.array(data)
@@ -34,9 +34,9 @@ class Node(object):
         self.visit_times = 0  # 访问次数
         self.quality_value = 0.0  # 得分
         self.fitch_score = 0
-        self.score=None
+        self.score = None
         self.childrenPool = []  # chilidren的待选库
-        self.is_all_explored=False
+        self.is_all_explored = False
 
     def set_state(self, state):
         self.state = state
@@ -92,10 +92,11 @@ class Node(object):
         if self.parent != None:
             return "NodeScore: {},fitch:{}, Q/N: {}, visit_time:{},state: {}".format(
                 self.score,
-                self.fitch_score , self.quality_value/self.visit_times,self.visit_times, self.state)
+                self.fitch_score, self.quality_value / self.visit_times, self.visit_times, self.state)
         else:
             return "NodeScore: {},fitch:{}, Q/N: {}, visit_time:{},state: {}".format(
-                self.score,self.fitch_score, self.quality_value / self.visit_times, self.visit_times, self.state)
+                self.score, self.fitch_score, self.quality_value / self.visit_times, self.visit_times, self.state)
+
 
 def divis(S):
     '''
@@ -122,6 +123,7 @@ def divis(S):
             result.append([s1, s2])
     return result
 
+
 def divis2(S):
     # 返回一个结果
     if len(S) < 3:
@@ -134,13 +136,14 @@ def divis2(S):
         s2 = []
         for i in range(len(S)):
             if (x >> i) % 2 == 1:
-                part1 +=1
+                part1 += 1
                 s1.append(S[i])
             else:
                 s2.append(S[i])
                 part2 += 1
         if part1 != 0 and part2 != 0:
             return [s1, s2]
+
 
 def is_terminal(treeSatus):
     '''
@@ -172,7 +175,7 @@ def find_can_divis_number(treeStatus):
         if isinstance(i, list):
             if is_terminal(i) == False:
                 sum = sum * find_can_divis_number(i)
-    if sum==1:
+    if sum == 1:
         return 0
     return sum
 
@@ -201,7 +204,7 @@ def tree_policy(node):
     """
 
     # Check if the current node is the leaf node
-    while node!=None and is_terminal(node.get_state()) == False:
+    while node != None and is_terminal(node.get_state()) == False:
         # 判断是否可能的结果全部探索完，这里可以用来限制探索的广度
         if node.is_all_expand():
             node = best_child(node, True)
@@ -289,14 +292,16 @@ def get_next_state_with_random_choice3(node):
     # 随机选择分割结果
     return get_children2(node.get_state())
 
+
 def is_allexplored(node):
     if not node.is_all_expand():
         return False
-    result=True
+    result = True
     for i in node.get_children():
-        result=result and is_allexplored(i)
-    node.is_all_explored=result
+        result = result and is_allexplored(i)
+    node.is_all_explored = result
     return result
+
 
 def default_policy(current_state):
     """
@@ -312,9 +317,9 @@ def default_policy(current_state):
     for i in res:
         current_state = current_state.replace(str(i), str(i).replace("[", "{").replace("]", "}"))
     current_state = current_state.replace("[", "(").replace("]", ")").replace(" ", "")
-    treeScore=getFict(current_state, li)
+    treeScore = getFict(current_state, li)
     if treeScore not in treeResult:
-        treeResult[treeScore]=[current_state]
+        treeResult[treeScore] = [current_state]
     elif current_state not in treeResult[treeScore]:
         treeResult[treeScore].append(current_state)
     return treeScore
@@ -353,7 +358,7 @@ def best_child(node, is_exploration):
     best_sub_node = None
 
     # Travel all sub nodes to find the best one
-    t=node.get_children()
+    t = node.get_children()
     for sub_node in node.get_children():
 
         # Ignore exploration for inference
@@ -368,13 +373,13 @@ def best_child(node, is_exploration):
         score = left - C * math.sqrt(right)
         # score = left
 
-        sub_node.score=score
+        sub_node.score = score
         if not is_allexplored(sub_node) and score < best_score:
             best_sub_node = sub_node
             best_score = score
 
-    if best_score==sys.maxsize:
-        best_sub_node=node.parent
+    if best_score == sys.maxsize:
+        best_sub_node = node.parent
     return best_sub_node
 
 
@@ -452,7 +457,7 @@ def monte_carlo_tree_search(node):
         expand_node = tree_policy(node)
 
         # 2. Random run to add node and get reward
-        if expand_node==None:
+        if expand_node == None:
             break
         reward = default_policy(expand_node.get_state())
 
@@ -460,7 +465,7 @@ def monte_carlo_tree_search(node):
         backup(expand_node, reward)
 
     # N. Get the best next node
-    if node==None:
+    if node == None:
         return None
     best_next_node = best_child(node, True)
 
@@ -471,14 +476,14 @@ def readDataTxt(path):
     data = pd.read_table(path, header=None, sep=" ")
     return data
 
+
 def main():
     start = time.time()
     # Create the initialized state and initialized node
-    path1 = r"C:\liuAmon_core_code\mente_carlo_tree_search_in_pedigreeTree\testData\011号简化数据集奇虾\011号完整数据集.txt"
+    path1 = r"testData\011号简化数据集奇虾\011号完整数据集.txt"
     data = readDataTxt(path1)
     li = np.array(data)
     initTree = [i for i in range(len(li))]
-
 
     init_node = Node()
     init_node.set_state(initTree)
@@ -500,13 +505,13 @@ def main():
     while current_node != None:
 
         current_node = monte_carlo_tree_search(current_node)
-        if current_node==None:
+        if current_node == None:
             break
         print("Play round: {}".format(count + 1))
         count += 1
         print("Choose node: {}".format(current_node))
         print(time.time() - start)
-        global treeResult
+        # global treeResult
         temp = sorted(treeResult.items())
         treeResult = {}
         treeResult[temp[0][0]] = temp[0][1]
@@ -531,11 +536,11 @@ def main():
 
 
 if __name__ == "__main__":
-    #TODO 编写用例
-    #TODO 使用list装最小树得分的树(已完成)
-    #TODO 加速fitch算法
-    #TODO 对部分不可枝进行提前删除，eg：通过距离，通过初始树
-    #TODO 代码整理
-    #TODO 对打分部分进行整理
-    #TODO 加入Alpha-beta方法
+    # TODO 编写用例
+    # TODO 使用list装最小树得分的树(已完成)
+    # TODO 加速fitch算法
+    # TODO 对部分不可枝进行提前删除，eg：通过距离，通过初始树
+    # TODO 代码整理
+    # TODO 对打分部分进行整理
+    # TODO 加入Alpha-beta方法
     main()
