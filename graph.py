@@ -31,20 +31,61 @@ def bfsTravel(graph, source):
         frontiers = nexts  # 更改前驱节点列表
     return travel
 
-
-def dfsTravel(graph, source):
+def neighborHasVal(graph,current):
+    '''
+    获取邻居的val值
+    :param graph:
+    :param current:
+    :return: [[]]
+    '''
+    count=[]
+    for i in graph[current]:
+        if val[i]!=[]:
+            count.append(val[i])
+    return count
+def hasOnlyInapp(graphVal):
+    for i in graphVal:
+        if '-' in i and len(i)==1:
+            return True
+    return False
+def deleteOneInapp(graphVal):
+    for i in graphVal:
+        if '-' in i and len(i)>1:
+            i.remove('-')
+    return graphVal
+def IntersectionSet(graph):
+    '''
+    有交取交，无交取并
+    :param graph:
+    :return:
+    '''
+    temp=set(graph[0]).intersection(*graph[1:])
+    if len(temp)==0:
+        temp=set(graph[0]).union(*graph[1:])
+    return list(temp)
+def dfsTravelFirst(val,graph, source):
     # 传入的参数为邻接表存储的图和一个开始遍历的源节点
     travel = []  # 存放访问过的节点的列表
     stack = [source]  # 构造一个堆栈
     while stack:  # 堆栈空时结束
         current = stack.pop()  # 堆顶出队
         if current not in travel:  # 判断当前结点是否被访问过
-            travel.append(current)  # 如果没有访问过，则将其加入访问列表
+            if len(val[current])==1:
+                travel.append(current)
+            elif val[current]==[]:
+                temp=neighborHasVal(graph,current)
+                if len(temp)>1:
+                    if hasOnlyInapp(temp):
+                        pass
+                    else:
+                        temp=deleteOneInapp(temp)
+                    val[current]=IntersectionSet(temp)
+                    travel.append(current)  # 如果没有访问过，则将其加入访问列表
+        print(current,val[current])
         for next_adj in graph[current]:  # 遍历当前结点的下一级
             if next_adj not in travel:  # 没有访问过的全部入栈
                 stack.append(next_adj)
-    return travel
-
+    return travel,val
 
 if __name__ == "__main__":
     graph = {}
@@ -70,7 +111,30 @@ if __name__ == "__main__":
     graph['u'] = ['t', 'j', 'k']
     graph['v'] = ['s', 't']
 
-    # test of BFS
-    print(bfsTravel(graph, 'b'))
+    val={}
+    val['a']=['0']
+    val['b']=['1']
+    val['c']=['-']
+    val['d']=['-']
+    val['e']=['-']
+    val['f']=['-']
+    val['g']=['1']
+    val['h']=['-']
+    val['i']=['-']
+    val['j']=['-']
+    val['k']=['2']
+    val['l']=[]
+    val['m']=[]
+    val['n']=[]
+    val['p']=[]
+    val['q']=[]
+    val['r']=[]
+    val['s']=[]
+    val['t']=[]
+    val['u']=[]
+    val['v']=[]
 
-    print(dfsTravel(graph, 'b'))
+    # test of BFS
+    # print(bfsTravel(graph, 'a'))
+
+    print(dfsTravelFirst(val,graph, 'a'))

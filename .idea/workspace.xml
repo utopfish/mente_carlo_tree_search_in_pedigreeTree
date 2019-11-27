@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/singleCharacterFitch.py" description="print(root.val)" line="71" />
-    <bookmark url="file://$PROJECT_DIR$/singleCharacterFitch.py" description="if root.right==None or root.left==None:" line="161" />
+    <bookmark url="file://$PROJECT_DIR$/singleCharacterFitch.py" description="print(root.val)" line="84" />
+    <bookmark url="file://$PROJECT_DIR$/singleCharacterFitch.py" description="if root.right==None or root.left==None:" line="176" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2285d5e1-afd7-4dc2-860e-ec4e1f1e30c8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/graph.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,10 +22,11 @@
     <SUITE FILE_PATH="coverage/singleCharacterFitch$plot.coverage" NAME="plot Coverage Results" MODIFIED="1553841477469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$captcha_spider.coverage" NAME="captcha_spider Coverage Results" MODIFIED="1571487277513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="H:/国信工作/爬虫开发/spider_for_gsxt" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$test2.coverage" NAME="test2 Coverage Results" MODIFIED="1572624127466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$graph.coverage" NAME="graph Coverage Results" MODIFIED="1574344968088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$graph.coverage" NAME="graph Coverage Results" MODIFIED="1574848944381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$Oneclass2.coverage" NAME="Oneclass2 Coverage Results" MODIFIED="1572358208868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Documents/WeChat Files/LiuAmon/FileStorage/File/2019-10" />
     <SUITE FILE_PATH="coverage/singleCharacterFitch$singleCharacterFitch.coverage" NAME="singleCharacterFitch Coverage Results" MODIFIED="1571114922835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$test3.coverage" NAME="test3 Coverage Results" MODIFIED="1572450139188" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$graphTest.coverage" NAME="graphTest Coverage Results" MODIFIED="1574848240093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$singleCharacterFitch.coverage" NAME="singleCharacterFitch Coverage Results" MODIFIED="1573549033770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mente_carlo_tree_search_in_pedigreeTree$test4.coverage" NAME="test4 Coverage Results" MODIFIED="1572450110998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singleCharacterFitch$test.coverage" NAME="test Coverage Results" MODIFIED="1554212976973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -115,7 +117,7 @@
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.36" value="1" />
-          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.4" value="3" />
           <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.43" value="1" />
           <entry key="project.open.time.44" value="1" />
@@ -126,13 +128,13 @@
           <entry key="project.open.time.57" value="1" />
           <entry key="project.open.time.58" value="1" />
           <entry key="project.open.time.63" value="1" />
-          <entry key="project.opened" value="27" />
+          <entry key="project.opened" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="md" value="6169" />
-          <entry key="py" value="4538" />
+          <entry key="py" value="5395" />
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
@@ -140,7 +142,7 @@
         <counts>
           <entry key="Markdown" value="6169" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="4538" />
+          <entry key="Python" value="5395" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -150,7 +152,7 @@
           <entry key="md" value="12" />
           <entry key="mdj" value="2" />
           <entry key="pstat" value="1" />
-          <entry key="py" value="30" />
+          <entry key="py" value="33" />
           <entry key="tnt" value="1" />
           <entry key="txt" value="6" />
           <entry key="测试结果" value="1" />
@@ -162,7 +164,7 @@
           <entry key="Markdown" value="12" />
           <entry key="PLAIN_TEXT" value="10" />
           <entry key="Profiler Session" value="1" />
-          <entry key="Python" value="30" />
+          <entry key="Python" value="33" />
           <entry key="R" value="1" />
         </counts>
       </usages-collector>
@@ -176,11 +178,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="70" column="24" lean-forward="true" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+            <state relative-caret-position="213">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
               <folding>
-                <marker date="1574344968068" expanded="true" signature="83:85" ph="..." />
+                <marker date="1574848944370" expanded="true" signature="87:89" ph="..." />
+                <marker date="1574848944370" expanded="true" signature="1352:1550" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/graphTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -206,10 +218,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/singleCharacterFitch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2145">
-              <caret line="67" column="18" selection-start-line="67" selection-start-column="18" selection-end-line="67" selection-end-column="18" />
+            <state relative-caret-position="1815">
+              <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mente_carlo_tree_search.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15279">
+              <caret line="472" selection-start-line="472" selection-end-line="472" />
+              <folding>
+                <element signature="e#130#140#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -236,8 +260,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fitch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1584">
-              <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+            <state relative-caret-position="1980">
+              <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -318,11 +342,12 @@
         <option value="$PROJECT_DIR$/mente_carlo_tree_search.py" />
         <option value="$PROJECT_DIR$/testData/011号简化数据集奇虾/完整数据集.tnt" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/singleCharacterFitch.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/fitch.py" />
         <option value="E:/myWeb/utopfish.github.io/source/_posts/《人件》读书笔记.md" />
         <option value="$PROJECT_DIR$/NA.reconstruction.R" />
+        <option value="$PROJECT_DIR$/singleCharacterFitch.py" />
+        <option value="$PROJECT_DIR$/fitch.py" />
+        <option value="$PROJECT_DIR$/graphTest.py" />
         <option value="$PROJECT_DIR$/graph.py" />
       </list>
     </option>
@@ -334,9 +359,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1272" />
-    <option name="width" value="1297" />
-    <option name="height" value="1398" />
+    <option name="x" value="235" />
+    <option name="y" value="191" />
+    <option name="width" value="1950" />
+    <option name="height" value="1400" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -402,6 +428,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/graph.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="graphTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="singleCharacterFitch" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/graphTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -476,42 +524,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="singleCharacterFitch" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.test" />
       <item itemvalue="Python.mente_carlo_tree_search" />
-      <item itemvalue="Python.test2" />
       <item itemvalue="Python.singleCharacterFitch" />
       <item itemvalue="Python.graph" />
+      <item itemvalue="Python.graphTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.graph" />
+        <item itemvalue="Python.graphTest" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.singleCharacterFitch" />
         <item itemvalue="Python.mente_carlo_tree_search" />
-        <item itemvalue="Python.test2" />
       </list>
     </recent_temporary>
   </component>
@@ -542,15 +568,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1018" y="0" width="1037" height="1118" extended-state="0" />
+    <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4979339" visible="true" weight="0.07252298" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4979339" visible="true" weight="0.11926147" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50206614" side_tool="true" weight="0.13760504" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.6186613" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.15821502" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30181086" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.30181086" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
@@ -563,7 +590,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" visible="true" weight="0.076608784" />
+      <window_info anchor="right" id="SciView" order="3" visible="true" weight="0.027944112" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="R Graphics" order="5" />
       <window_info anchor="right" id="R Packages" order="6" />
@@ -632,7 +659,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/singleCharacterFitch.py</url>
-          <line>70</line>
+          <line>83</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -657,8 +684,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/graph.py</url>
-          <line>21</line>
+          <line>24</line>
           <option name="timeStamp" value="131" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/graph.py</url>
+          <line>70</line>
+          <option name="timeStamp" value="134" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -667,7 +699,6 @@
     <SUITE FILE_PATH="coverage/singleCharacterFitch$singleCharacterFitch.coverage" NAME="singleCharacterFitch Coverage Results" MODIFIED="1570871908878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://H:/myWeb/source/_posts/柳絮篇.md" />
     <entry file="file://H:/myWeb/source/_posts/读木心摘抄.md" />
     <entry file="file://H:/国信工作/爬虫开发/spider_for_gsxt/captcha_spider.py" />
     <entry file="file://H:/myWeb/source/_posts/八十年代大学生的一首诗.md" />
@@ -735,16 +766,6 @@
       </provider>
     </entry>
     <entry file="file://E:/myWeb/utopfish.github.io/source/_posts/读《人件》.md" />
-    <entry file="file://$PROJECT_DIR$/mente_carlo_tree_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15609">
-          <caret line="482" column="49" selection-start-line="482" selection-start-column="12" selection-end-line="482" selection-end-column="49" />
-          <folding>
-            <element signature="e#130#140#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testData/011号简化数据集奇虾/穷举结果.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
@@ -752,10 +773,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://E:/实验室谱系树一切相关/谱系树软件/已有软件/Rphylip-master/Rphylip-master/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/everyday_coding/LeetCodeCamp/python/middle/cloneGraph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="4" selection-start-line="4" selection-end-line="7" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1815">
-          <caret line="57" column="11" selection-start-line="57" selection-start-column="11" selection-end-line="57" selection-end-column="28" />
+        <state relative-caret-position="547">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
           <folding>
             <element signature="e#107#147#0" expanded="true" />
           </folding>
@@ -778,10 +816,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/singleCharacterFitch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2145">
-          <caret line="67" column="18" selection-start-line="67" selection-start-column="18" selection-end-line="67" selection-end-column="18" />
+        <state relative-caret-position="1815">
+          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mente_carlo_tree_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15279">
+          <caret line="472" selection-start-line="472" selection-end-line="472" />
+          <folding>
+            <element signature="e#130#140#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -802,8 +850,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fitch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1584">
-          <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+        <state relative-caret-position="1980">
+          <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -817,29 +865,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://E:/实验室谱系树一切相关/谱系树软件/已有软件/Rphylip-master/Rphylip-master/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor>
-            <markdownNavigatorState />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/everyday_coding/LeetCodeCamp/python/middle/cloneGraph.py">
+    <entry file="file://$PROJECT_DIR$/graphTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" selection-start-line="4" selection-end-line="7" selection-end-column="34" />
+        <state relative-caret-position="264">
+          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="70" column="24" lean-forward="true" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+        <state relative-caret-position="213">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
           <folding>
-            <marker date="1574344968068" expanded="true" signature="83:85" ph="..." />
+            <marker date="1574848944370" expanded="true" signature="87:89" ph="..." />
+            <marker date="1574848944370" expanded="true" signature="1352:1550" ph="..." />
           </folding>
         </state>
       </provider>
