@@ -35,11 +35,5 @@ def analysis(test,num,result):
 # for i in divis(test):
 #     print("{}:{}".format(i,default_policy(i)))
 if __name__=="__main__":
-    te=[i for i in range(3)]
-    s=get_children(te)
-    test = [ i for i in range(len(li))]
-    start=time.time()
-    te=analysis(test,0,{})
-    temp=sorted(te)
-    print(len(te[temp[0]]))
-    print(time.time()-start)
+    a='(a,(b,c))'
+    b='((b,c),a)'

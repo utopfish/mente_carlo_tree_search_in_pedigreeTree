@@ -405,7 +405,7 @@ def getSingleChararcterFitch(treeResult, character):
     return tree.score[0]
 
 
-def getFict(treeResult, characters):
+def getsingleFitchs(treeResult, characters):
     count = 0
     for i in range(1, len(characters[0])):
         count += getSingleChararcterFitch(treeResult, characters[:, i])
@@ -437,4 +437,4 @@ if __name__ == "__main__":
 
     te = ["((0,1),(2,(3,4)))", "({0,1,2,3},4)"]
     for i in te:
-        print("{}:{}".format(i, getFict(i, li)))
+        print("{}:{}".format(i, getsingleFitchs(i, li)))

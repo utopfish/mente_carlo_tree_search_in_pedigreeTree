@@ -1,8 +1,9 @@
-# -*- coding=utf-8 -*-
-# @author:liuAmon
-# @contact:utopfish@163.com
-# @file:mente_carlo_tree_search.py
-# @time: 2019/10/17 21:32
+#@Time:2020/8/13 20:06
+#@Author:liuAmon
+#@e-mail:utopfish@163.com
+#@File:mente_carlo_tree_search_improve.py
+__author__ = "liuAmon"
+
 import sys
 import copy
 import time
@@ -99,9 +100,6 @@ class Node(object):
                 self.score, self.fitch_score, self.quality_value / self.visit_times, self.visit_times, self.state)
 
 
-
-
-
 def divis(S):
     # 返回随机划分的一个结果,对分类的结果按大小进行排序
     if len(S) < 3:
@@ -123,34 +121,35 @@ def divis(S):
         if part1 != 0 and part2 != 0:
             s1.sort()
             s2.sort()
-            if s1[0]<s2[0]:
+            if s1[0] < s2[0]:
                 return [s1, s2]
             else:
-                return [s2,s1]
+                return [s2, s1]
+
 
 def divis_kmean(S):
     '使用kmean对数据进行二分类,并将结果排序'
     if len(S) < 3:
         return [S]
-    temp=[]
+    temp = []
     for s in S:
         temp.append(li[s][1:])
-    temp=np.array(temp)
+    temp = np.array(temp)
     kmeans_model = KMeans(n_clusters=2).fit(temp)
     labels = kmeans_model.labels_
-    part1=[]
-    part2=[]
-    for index,s in enumerate(S):
-        if labels[index]==0:
+    part1 = []
+    part2 = []
+    for index, s in enumerate(S):
+        if labels[index] == 0:
             part1.append(s)
         else:
             part2.append(s)
     part1.sort()
     part2.sort()
-    if part1[0]<part2[0]:
-        return [part1,part2]
+    if part1[0] < part2[0]:
+        return [part1, part2]
     else:
-        return [part2,part1]
+        return [part2, part1]
 def is_terminal(treeSatus):
     '''
     判断树结构是否继续可分
@@ -203,24 +202,7 @@ def find_can_divis(treeStatus):
     return re
 
 
-def tree_policy(node):
-    """
-    蒙特卡罗树搜索的Selection和Expansion阶段，传入当前需要开始搜索的节点（例如根节点），根据exploration/exploitation算法返回最好的需要expend的节点，注意如果节点是叶子结点直接返回。
-    基本策略是先找当前未选择过的子节点，如果有多个则随机选。如果都选择过就找权衡过exploration/exploitation的UCB值最大的，如果UCB值相等则随机选。
-    """
 
-    # Check if the current node is the leaf node
-    while node != None and is_terminal(node.get_state()) == False:
-        # 判断是否可能的结果全部探索完，这里可以用来限制探索的广度
-        if node.is_all_expand():
-            node = best_child(node, True)
-        else:
-            # Return the new sub node
-            sub_node = expand(node)
-            return sub_node
-
-    # Return the leaf node
-    return node
 
 
 def get_next_state_with_random_choice(treeSatus):
@@ -240,33 +222,11 @@ def get_next_state_with_random_choice(treeSatus):
     return newTree
 
 
+
+
+
 def get_children(treeStatus):
     '''
-    获取所有可能的子节点树结构
-    :param treeStatus:
-    :return:
-    '''
-    if is_terminal(treeStatus):
-        return [treeStatus]
-    if isinstance(treeStatus[0], int) and len(treeStatus) > 2:
-        return divis(treeStatus)
-    newTree = copy.deepcopy(treeStatus)
-    resultTreeNow = []
-    resultTreeNow.append(newTree)
-    for index, i in enumerate(treeStatus):
-        if isinstance(i, list):
-            resultTreePre = copy.deepcopy(resultTreeNow)
-            resultTreeNow = []
-            for tree in resultTreePre:
-                for k in get_children(i):
-                    newtr = copy.deepcopy(tree)
-                    newtr[index] = k
-                    resultTreeNow.append(newtr)
-    return resultTreeNow
-
-
-def get_children2(treeStatus):
-    '''
     获取随机一个子节点树结构
     :param treeStatus:
     :return:
@@ -281,28 +241,10 @@ def get_children2(treeStatus):
         newTree = copy.deepcopy(treeStatus)
         for index, i in enumerate(treeStatus):
             if isinstance(i, list):
-                newTree[index] = get_children2(i)
+                newTree[index] = get_children(i)
         return newTree
 
 
-def get_children_kmean(treeStatus):
-    '''
-    获取随机一个子节点树结构
-    :param treeStatus:
-    :return:
-    '''
-    if is_terminal(treeStatus):
-        if isinstance(treeStatus[0], int) and len(treeStatus) == 1:
-            return treeStatus[0]
-        return treeStatus
-    elif isinstance(treeStatus[0], int) and len(treeStatus) > 2:
-        return divis(treeStatus)
-    else:
-        newTree = copy.deepcopy(treeStatus)
-        for index, i in enumerate(treeStatus):
-            if isinstance(i, list):
-                newTree[index] = get_children2(i)
-        return newTree
 
 def get_next_state_with_random_choice2(node):
     # 对分割结果进行存储
@@ -313,9 +255,9 @@ def get_next_state_with_random_choice2(node):
     return random.choice(node.childrenPool)
 
 
-def get_next_state_with_random_choice3(node):
+def get_next_state_with_random_choic3(node):
     # 随机选择分割结果
-    return get_children2(node.get_state())
+    return get_children(node.get_state())
 def get_next_state_with_e_kMean(treeStatus,theta=0.9):
     # kmean 聚类结果,0.5概率随机，0.5概率kmean
 
@@ -345,145 +287,8 @@ def is_allexplored(node):
     return result
 
 
-def default_policy(current_state):
-    """
-    蒙特卡罗树搜索的Simulation阶段，输入一个需要expand的节点，随机操作后创建新的节点，返回新增节点的reward。注意输入的节点应该不是子节点，而且是有未执行的Action可以expend的。
-    基本策略是随机选择Action。
-    """
 
-    # Get the state of the game
-    while is_terminal(current_state) == False:
-        current_state = get_children2(current_state)
-    res = find_can_divis(current_state)
-    current_state = str(current_state)
-    for i in res:
-        current_state = current_state.replace(str(i), str(i).replace("[", "{").replace("]", "}"))
-    current_state = current_state.replace("[", "(").replace("]", ")").replace(" ", "")
-    treeScore = getsingleFitchs(current_state, li)
-    if treeScore not in treeResult:
-        treeResult[treeScore] = [current_state]
-    elif current_state not in treeResult[treeScore]:
-        treeResult[treeScore].append(current_state)
-    return treeScore
-
-
-def expand(node):
-    """
-    输入一个节点，在该节点上拓展一个新的节点，使用random方法执行Action，返回新增的节点。注意，需要保证新增的节点与其他节点Action不同。
-    """
-
-    tried_sub_node_states = [
-        sub_node.get_state() for sub_node in node.get_children()
-    ]
-
-    # new_state = get_next_state_with_random_choice3(node)
-    new_state=get_next_state_with_e_kMean(node.get_state())
-    # Check until get the new state which has the different action from others
-    # while new_state in tried_sub_node_states:
-    #     new_state = get_next_state_with_random_choice3(node)
-    while new_state in tried_sub_node_states:
-        new_state = get_next_state_with_e_kMean(node.get_state())
-
-    sub_node = Node()
-    sub_node.set_state(new_state)
-    node.add_child(sub_node)
-
-    return sub_node
-
-
-def best_child(node, is_exploration):
-    """
-    使用UCB算法，权衡exploration和exploitation后选择得分最高的子节点，注意如果是预测阶段直接选择当前Q值得分最高的。
-    使用得分减处理之后的访问次数进行选择
-    """
-
-    # TODO: Use the min float value
-    best_score = sys.maxsize
-    best_sub_node = None
-
-    # Travel all sub nodes to find the best one
-    t = node.get_children()
-    for sub_node in node.get_children():
-
-        # Ignore exploration for inference
-        if is_exploration:
-            C = 1 / math.sqrt(2.0)
-        else:
-            C = 0.0
-
-        # UCB = quality / times + C * sqrt(2 * ln(total_times) / times)
-        left = sub_node.get_quality_value() / sub_node.get_visit_times()
-        right = 5.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
-        score = left - C * math.sqrt(right)
-        # score = left
-
-        sub_node.score = score
-        if not is_allexplored(sub_node) and score < best_score:
-            best_sub_node = sub_node
-            best_score = score
-
-    if best_score == sys.maxsize:
-        best_sub_node = node.parent
-    return best_sub_node
-
-
-def best_child2(node, is_exploration):
-    """
-    使用UCB算法，权衡exploration和exploitation后选择得分最高的子节点，注意如果是预测阶段直接选择当前Q值得分最高的。
-    """
-
-    # TODO: Use the min float value
-    best_score = sys.maxsize
-    best_sub_node = None
-
-    # Travel all sub nodes to find the best one
-    for sub_node in node.get_children():
-
-        # Ignore exploration for inference
-        if is_exploration:
-            C = 1 / math.sqrt(2.0)
-        else:
-            C = 0.0
-
-        # UCB = quality / times + C * sqrt(2 * ln(total_times) / times)
-        left = -sub_node.get_quality_value() / sub_node.get_visit_times()
-        right = 2.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
-        score = left - C * math.sqrt(right)
-        # score=sub_node.get_fitch_score()
-
-        if score < best_score:
-            best_sub_node = sub_node
-            best_score = score
-
-    return best_sub_node
-
-
-def backup(node, reward):
-    """
-    蒙特卡洛树搜索的Backpropagation阶段，输入前面获取需要expend的节点和新执行Action的reward，反馈给expend节点和上游所有节点并更新对应数据。
-    """
-
-    # Update util the root node
-    while node != None:
-        # Update the visit times
-        node.visit_times_add_one()
-
-        # Update the quality value
-        node.quality_value_add_n(reward)
-
-        # Change the node to the parent node
-        node = node.parent
-
-
-def backup2(node, reward):
-    if node.get_fitch_score() == 0:
-        node.fitch_score_add_n(reward)
-    if node.parent != None:
-        node.parent.quality_value_add_n(reward)
-        node.parent.visit_times_add_one()
-
-
-def monte_carlo_tree_search(node):
+class monte_carlo_tree_search():
     """
     实现蒙特卡洛树搜索算法，传入一个根节点，在有限的时间内根据之前已经探索过的树结构expand新节点和更新数据，然后返回只要exploitation最高的子节点。
     蒙特卡洛树搜索包含四个步骤，Selection、Expansion、Simulation、Backpropagation。
@@ -492,30 +297,143 @@ def monte_carlo_tree_search(node):
     最后一步使用backup也就是把reward更新到所有经过的选中节点的节点上。
     进行预测时，只需要根据Q值选择exploitation最大的节点即可，找到下一个最优的节点。
     """
+    def __init__(self,Node,computation_budget=100):
+        self.node=Node
+        self.computation_budget=computation_budget
+    def set_node(self,Node):
+        self.node=Node
+    def search(self):
+        # Run as much as possible under the computation budget
+        for i in range(self.computation_budget):
+            # 1. Find the best node to expand
+            expand_node = self.tree_policy(self.node)
 
-    computation_budget = 200
+            # 2. Random run to add node and get reward
+            if expand_node == None:
+                break
+            reward = self.default_policy(expand_node.get_state())
 
-    # Run as much as possible under the computation budget
-    for i in range(computation_budget):
-        # 1. Find the best node to expand
-        expand_node = tree_policy(node)
+            # 3. Update all passing nodes with reward
+            self.backup(expand_node, reward)
 
-        # 2. Random run to add node and get reward
-        if expand_node == None:
-            break
-        reward = default_policy(expand_node.get_state())
+        # N. Get the best next node
+        if self.node == None:
+            return None
+        best_next_node = self.best_child(self.node, True)
 
-        # 3. Update all passing nodes with reward
-        backup(expand_node, reward)
+        return best_next_node
+    def tree_policy(self,node):
+        '''
+        蒙特卡罗树搜索的Selection和Expansion阶段，传入当前需要开始搜索的节点（例如根节点），根据exploration/exploitation算法返回最好的需要expend的节点，注意如果节点是叶子结点直接返回。
+        基本策略是先找当前未选择过的子节点，如果有多个则随机选。如果都选择过就找权衡过exploration/exploitation的UCB值最大的，如果UCB值相等则随机选。
+        :param node:
+        :return:
+        '''
 
-    # N. Get the best next node
-    if node == None:
-        return None
-    best_next_node = best_child(node, True)
+        # Check if the current node is the leaf node
+        while node != None and is_terminal(node.get_state()) == False:
+            # 判断是否可能的结果全部探索完，这里可以用来限制探索的广度
+            if node.is_all_expand():
+                node = self.best_child(node, True)
+            else:
+                # Return the new sub node
+                sub_node = self.expand(node)
+                return sub_node
 
-    return best_next_node
+        # Return the leaf node
+        return node
+    def default_policy(self,current_state):
+        """
+        蒙特卡罗树搜索的Simulation阶段，输入一个需要expand的节点，随机操作后创建新的节点，返回新增节点的reward。注意输入的节点应该不是子节点，而且是有未执行的Action可以expend的。
+        基本策略是随机选择Action。
+        """
+        # Get the state of the game
+        while is_terminal(current_state) == False:
+            current_state = get_children(current_state)
+        res = find_can_divis(current_state)
+        current_state = str(current_state)
+        for i in res:
+            current_state = current_state.replace(str(i), str(i).replace("[", "{").replace("]", "}"))
+        current_state = current_state.replace("[", "(").replace("]", ")").replace(" ", "")
+        treeScore = getsingleFitchs(current_state, li)
+        if treeScore not in treeResult:
+            treeResult[treeScore] = [current_state]
+        elif current_state not in treeResult[treeScore]:
+            treeResult[treeScore].append(current_state)
+        return treeScore
 
+    def backup(self,node, reward):
+        """
+            蒙特卡洛树搜索的Backpropagation阶段，输入前面获取需要expend的节点和新执行Action的reward，反馈给expend节点和上游所有节点并更新对应数据。
+            并将该节点与其父节点访问次数加一
+            """
+        # Update util the root node
+        while node != None:
+            # Update the visit times
+            node.visit_times_add_one()
 
+            # Update the quality value
+            node.quality_value_add_n(reward)
+
+            # Change the node to the parent node
+            node = node.parent
+
+    def best_child(self,node, is_exploration):
+        """
+        使用UCB算法，权衡exploration和exploitation后选择得分最高的子节点，注意如果是预测阶段直接选择当前Q值得分最高的。
+        使用得分减处理之后的访问次数进行选择
+        """
+
+        # TODO: Use the min float value
+        best_score = sys.maxsize
+        best_sub_node = None
+
+        # Travel all sub nodes to find the best one
+        for sub_node in node.get_children():
+
+            # Ignore exploration for inference
+            if is_exploration:
+                C = 1 / math.sqrt(2.0)
+            else:
+                C = 0.0
+
+            # UCB = quality / times + C * sqrt(2 * ln(total_times) / times)
+            left = sub_node.get_quality_value() / sub_node.get_visit_times()
+            right = 5.0 * math.log(node.get_visit_times()) / sub_node.get_visit_times()
+            score = left - C * math.sqrt(right)
+            # score = left
+
+            sub_node.score = score
+            if not is_allexplored(sub_node) and score < best_score:
+                best_sub_node = sub_node
+                best_score = score
+
+        if best_score == sys.maxsize:
+            best_sub_node = node.parent
+        return best_sub_node
+
+    def expand(self,node):
+        """
+        输入一个节点，在该节点上拓展一个新的节点，使用random方法执行Action，返回新增的节点。注意，需要保证新增的节点与其他节点Action不同。
+        """
+
+        tried_sub_node_states = [
+            sub_node.get_state() for sub_node in node.get_children()
+        ]
+
+        # new_state = get_next_state_with_random_choice3(node)
+        new_state = get_next_state_with_e_kMean(node.get_state())
+        # Check until get the new state which has the different action from others
+        # while new_state in tried_sub_node_states:
+        #     new_state = get_next_state_with_random_choice3(node)
+        while new_state in tried_sub_node_states:
+            new_state = get_next_state_with_e_kMean(node.get_state())
+
+        sub_node = Node()
+        sub_node.set_state(new_state)
+        node.add_child(sub_node)
+
+        return sub_node
 def readDataTxt(path):
     data = pd.read_table(path, header=None, sep=" ")
     return data
@@ -531,10 +449,9 @@ def main():
 
     init_node = Node()
     init_node.set_state(initTree)
-    current_node = monte_carlo_tree_search(init_node)
+    MCTS = monte_carlo_tree_search(init_node)
+    current_node=MCTS.search()
 
-    # logging.basicConfig(filename="out-{}.log".format(time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime())),
-    #                     level=logging.WARNING)
 
     count = 0
     print("Play round: {}".format(count))
@@ -547,8 +464,8 @@ def main():
     print("最短树长个数:{}".format(len(temp[0][1])))
     # print("最短树长个数:{}".format(len(temp[0][1])))
     while current_node != None:
-
-        current_node = monte_carlo_tree_search(current_node)
+        MCTS.set_node(current_node)
+        current_node = MCTS.search()
         if current_node == None:
             break
         print("Play round: {}".format(count + 1))
@@ -562,19 +479,6 @@ def main():
         print(treeResult)
         print("最短树长个数:{}".format(len(temp[0][1])))
         if is_terminal(current_node.get_state()) == True:
-            # logging.warning("round: {}".format(count + 1))
-            # logging.warning("result:" + str(current_node.get_state()).replace("[", "(").replace("]", ")"))
-            # # logging.warning("fitch treeScore:{}".format(default_policy(current_node)))
-            # logging.warning("visit times :{}".format(current_node.get_visit_times()))
-            # logging.warning("cost time: {} s".format(int(time.time() - start)))
-            # logging.warning("------------------------------------")
-
-            # global treeResult
-            # temp=sorted(treeResult.items())
-            # treeResult={}
-            # treeResult[temp[0][0]]=temp[0][1]
-            # print(treeResult)
-            # print("最短树长个数:{}".format(len(temp[0][1])))
             while current_node.parent != None:
                 current_node = current_node.parent
 
