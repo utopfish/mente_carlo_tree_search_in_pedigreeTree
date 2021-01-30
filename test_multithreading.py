@@ -1,12 +1,12 @@
 # -*- coding=utf-8 -*-
 #@author:liuAmon
 #@contact:utopfish@163.com
-#@file:test.py
+#@file:test_multithreading.py
 #@time: 2019/10/17 22:44
 from multiprocessing import Process,Pool
 from singleCharacterFitch import *
 import threading
-
+#多线程加速的测试
 class RetThread(threading.Thread):
 
     def __init__(self, target=None, name=None, args=(), \
@@ -54,20 +54,7 @@ if __name__ == '__main__':
     path = r"testData\011号简化数据集奇虾\011号完整数据集.txt"
     data = readDataTxt(path)
     li = np.array(data)
-
-    te = ["((0,1),(2,(3,4)))", "({0,1,2,3},4)"]
-    start=time.time()
-    print("{}:{}".format(te[0], getFict(te[0], li)))
-    print(time.time()-start)
     record=[]
-    # start=time.time()
-    # for i in  range(1,len(li[0])):
-    #     process = Process(target=getSingleChararcterFitch, args=(te[0],li[:,i],))
-    #     process.start()
-    #     record.append(process)
-    # for process in record:
-    #     process.join()
-    # print(time.time()-start)
     start=time.time()
     for i in range(1,len(li[0])):
         t = RetThread(target=getSingleChararcterFitch, args=(te[0],li[:,i],))

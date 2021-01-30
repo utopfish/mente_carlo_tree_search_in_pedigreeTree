@@ -1,7 +1,7 @@
 import time
 import numpy as np
 import pandas as pd
-
+from utils import readNex
 
 class Node():
     def __init__(self, val, left=None, right=None):
@@ -387,6 +387,8 @@ def readDataTxt(path):
 
 
 def getSingleChararcterFitch(treeResult, character):
+    if not isinstance(character[0], str):
+        raise Exception("特征数据非str类型")
     tree = Tree(treeResult)
 
     tree.postorderInit(tree.root, character)
@@ -404,11 +406,37 @@ def getSingleChararcterFitch(treeResult, character):
     # tree.secondUpPass(tree.root, False)
     return tree.score[0]
 
-
+def np2str(character):
+    """
+    将np类型地数据转为 二维list的str ,np.nan为?, -1为-
+    :param character:
+    :return:
+    """
+    ret=[]
+    for i in range(len(character)):
+        tmp=[]
+        for j in range(len(character[0])):
+            if np.isnan(character[i][j]):
+                tmp.append("?")
+            elif character[i][j]==-1:
+                tmp.append("-")
+            else:
+                tmp.append(str(int(character[i][j])))
+        ret.append(tmp)
+    return ret
 def getsingleFitchs(treeResult, characters):
+    """
+    广义表与特征矩阵
+    :param treeResult:
+    :param characters:
+    :return:
+    """
+
+    characters=np2str(characters)
     count = 0
-    for i in range(1, len(characters[0])):
-        count += getSingleChararcterFitch(treeResult, characters[:, i])
+    for i in range(len(characters[0])):
+        character=[x[i] for x in characters]
+        count += getSingleChararcterFitch(treeResult, character)
     return count
 
 
@@ -431,10 +459,9 @@ def getFict2(treeResult, characters):
 
 if __name__ == "__main__":
 
-    path = r"testData\011号简化数据集奇虾\011号完整数据集.txt"
-    data = readDataTxt(path)
-    li = np.array(data)
+    path = r"C:\Users\pro\Desktop\实验三蒙特卡洛树\真实数据集\Aria2015.nex"
+    data, misss_row, speciesname, begin, end = readNex(path)
 
-    te = ["((0,1),(2,(3,4)))", "({0,1,2,3},4)"]
+    te = ["((0,1),(2,(3,4)))", "((0,1,2,3),4)"]
     for i in te:
-        print("{}:{}".format(i, getsingleFitchs(i, li)))
+        print("{}:{}".format(i, getsingleFitchs(i, data)))
