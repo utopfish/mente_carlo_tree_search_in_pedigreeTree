@@ -270,7 +270,7 @@ class monte_carlo_treeSearch():
     进行预测时，只需要根据Q值选择exploitation最大的节点即可，找到下一个最优的节点。
     """
 
-    def __init__(self, Node, data, computationBudget=10):
+    def __init__(self, Node, data, computationBudget=10,NJtype="pro"):
         """
 
         :param Node:
@@ -278,8 +278,9 @@ class monte_carlo_treeSearch():
         :param data: 特征矩阵
         """
         self.node = Node
-        self.computationBudget = computationBudget
         self.data = data
+        self.computationBudget = computationBudget
+        self.NJtype=NJtype
 
     def setNode(self, Node):
         self.node = Node
@@ -334,7 +335,7 @@ class monte_carlo_treeSearch():
         """
         # # Get the state of the game
         while len(currentState) > 2:
-            currentState, currentMatrix = self.getNextState_withNJ(currentState, currentMatrix)
+            currentState, currentMatrix = self.getNextState_withNJ(currentState, currentMatrix,self.NJtype)
 
         currentTree = state2Tree(currentState)
         treeScore = getsingleFitchs(currentTree, self.data)
@@ -402,13 +403,13 @@ class monte_carlo_treeSearch():
             subNode.getState() for subNode in node.get_children()
         ]
 
-        newTreeState, newDistanceMatrix = self.getNextState_withNJ(node.getState(), node.getDistanceMatrix())
+        newTreeState, newDistanceMatrix = self.getNextState_withNJ(node.getState(), node.getDistanceMatrix(),self.NJtype)
         # Check until get the new state which has the different action from others
         # 设定重复次数
         repeatTime = 0
         ##TODO：找到按概率随机选择数据
         while newTreeState in triedSubNodeStates and repeatTime < 100:
-            newTreeState, newDistanceMatrix = self.getNextState_withNJ(node.getState(), node.getDistanceMatrix())
+            newTreeState, newDistanceMatrix = self.getNextState_withNJ(node.getState(), node.getDistanceMatrix(),self.NJtype)
             repeatTime += 1
         subNode = Node()
         subNode.setState(newTreeState)
@@ -447,7 +448,7 @@ def saveRet(savePath,treeResult,spicesName):
 
 
 
-def main(savePath,data, spicename):
+def main(savePath,data, specicesName,searchRound,NJtype):
     """
     :param data:特征数据集
     :return:
@@ -458,13 +459,12 @@ def main(savePath,data, spicename):
     currentNode = Node()
     currentNode.setState(initTree)
     currentNode.setDistanceMatrix(distanceMatrix)
-    MCTS = monte_carlo_treeSearch(currentNode, data)
-
+    MCTS = monte_carlo_treeSearch(currentNode, data,NJtype=NJtype)
     count = 0
     global treeResult
     temp = sorted(treeResult.items())
     treeResult = {}
-    while currentNode != None and count < 50:
+    while currentNode != None and count < searchRound:
         MCTS.setNode(currentNode)
         currentNode = MCTS.search()
         if currentNode == None:
@@ -482,7 +482,7 @@ def main(savePath,data, spicename):
         if is_terminal(currentNode.getState()) == True:
             while currentNode.parent != None:
                 currentNode = currentNode.parent
-    saveRet(savePath,treeResult,speciesname)
+    saveRet(savePath,treeResult,specicesName)
 
 
 if __name__ == "__main__":
@@ -494,7 +494,7 @@ if __name__ == "__main__":
     # TODO 对打分部分进行整理
     # TODO 加入Alpha-beta方法
 
-    path = r"C:\Users\pro\Desktop\实验三蒙特卡洛树\真实数据集\Aria2015.nex"
-    savePath=r'C:\Users\pro\Desktop\实验三蒙特卡洛树\蒙特卡洛建树结果\Aria2015.nex'
-    data, misss_row, speciesname, begin, end = readNex(path)
-    main(savePath,data, speciesname)
+    path = r"C:\Users\pro\Desktop\实验三蒙特卡洛树\01真实数据集\01_Yang2015.nex"
+    savePath=r'测试结果\01_Yang2015.nex'
+    data, misss_row, specicesName, begin, end = readNex(path)
+    main(savePath,data, specicesName,50,"pro")
